@@ -52,8 +52,10 @@
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
 .highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
 .highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
 .highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
@@ -202,7 +204,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Run this cell before trying examples</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Run this cell before trying examples</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -377,12 +379,12 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;#Name    Height    Weight</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;John     180    80.5</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Paul     172    75.1</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;George   185    78.6</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Ringo    170    76.5</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;#Name    Height    Weight</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;John     180    80.5</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Paul     172    75.1</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;George   185    78.6</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Ringo    170    76.5</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -395,10 +397,10 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Notice that the argument is a list of tuples</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Height&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-                <span class="p">(</span><span class="s">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Notice that the argument is a list of tuples</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -428,9 +430,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;Name&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;{} has weight {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;Name&#39;</span><span class="p">],</span>
-                                <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;Weight&#39;</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> has weight </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Name&#39;</span><span class="p">],</span>
+                                <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Weight&#39;</span><span class="p">]))</span>
 </pre></div>
 
 </div>
@@ -458,7 +460,7 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
 </pre></div>
 
 </div>
@@ -528,7 +530,7 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Numpy arrays are classes</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Numpy arrays are classes</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">__class__</span><span class="p">)</span>
@@ -560,7 +562,7 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># We want to operate on the array: try numpy cumulative sum function</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We want to operate on the array: try numpy cumulative sum function</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
 </pre></div>
 
@@ -588,7 +590,7 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># np.cumsum(&#39;helloworld&#39;)   # Should we expect this to work?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># np.cumsum(&#39;helloworld&#39;)   # Should we expect this to work?</span>
 </pre></div>
 
 </div>
@@ -616,7 +618,7 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># cumsum is a method belonging to a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cumsum is a method belonging to a</span>
 <span class="n">a</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
 </pre></div>
 
@@ -655,13 +657,13 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Bob&#39;</span>     
-        <span class="c"># Attribute</span>
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>         <span class="c"># Method (more on &#39;self&#39; later)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Bob&#39;</span>     
+        <span class="c1"># Attribute</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>         <span class="c1"># Method (more on &#39;self&#39; later)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
 
-<span class="n">agreeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>         <span class="c"># &#39;Instantiate&#39; the class</span>
+<span class="n">agreeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>         <span class="c1"># &#39;Instantiate&#39; the class</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">agreeter</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">agreeter</span><span class="p">))</span>
 </pre></div>
@@ -676,7 +678,7 @@ b&apos;John&apos; has weight 80.5
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;__main__.Greeter object at 0x2b85e328f4e0&gt;
+<pre>&lt;__main__.Greeter object at 0x10e8854a8&gt;
 [&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__dict__&apos;, &apos;__dir__&apos;, &apos;__doc__&apos;, &apos;__eq__&apos;, &apos;__format__&apos;, &apos;__ge__&apos;, &apos;__getattribute__&apos;, &apos;__gt__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__le__&apos;, &apos;__lt__&apos;, &apos;__module__&apos;, &apos;__ne__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;__weakref__&apos;, &apos;hello&apos;, &apos;name&apos;]
 </pre>
 </div>
@@ -691,9 +693,9 @@ b&apos;John&apos; has weight 80.5
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Note that we don&#39;t pass an argument to hello!</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note that we don&#39;t pass an argument to hello!</span>
 <span class="n">agreeter</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;My name is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">agreeter</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;My name is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">agreeter</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -802,9 +804,9 @@ My name is Bob
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
 <span class="n">a_instance</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a_instance</span><span class="p">))</span>
@@ -858,14 +860,14 @@ My name is Bob
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
     <span class="k">pass</span>
 
-<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c"># This means &#39;inherit from object&#39;</span>
+<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># This means &#39;inherit from object&#39;</span>
     <span class="k">pass</span>
     
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c"># Would give &lt;type &#39;classobj&#39;&gt;</span>
-                          <span class="c"># in Python 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c1"># Would give &lt;type &#39;classobj&#39;&gt;</span>
+                          <span class="c1"># in Python 2</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">NewSyntax</span><span class="p">))</span>
 </pre></div>
 
@@ -940,21 +942,21 @@ My name is Bob
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Simple container which stores an array as an instance attribute</span>
 <span class="sd">    and an instance method&quot;&quot;&quot;</span>
-    <span class="c"># before we declared class attributes up here ...</span>
+    <span class="c1"># before we declared class attributes up here ...</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s">&#39;bx&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;bx&#39;</span><span class="p">)</span>
 
-<span class="n">mydata</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>      <span class="c"># 11 ia passed as &#39;N&#39; to __init__</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mydata</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>      <span class="c"># __dict__ is where the attr: value</span>
-                            <span class="c">#  pairs are stored!</span>
+<span class="n">mydata</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>      <span class="c1"># 11 ia passed as &#39;N&#39; to __init__</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mydata</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>      <span class="c1"># __dict__ is where the attr: value</span>
+                            <span class="c1">#  pairs are stored!</span>
 <span class="n">mydata</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 
@@ -1078,8 +1080,8 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>    <span class="c"># class attribute</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>    <span class="c1"># class attribute</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
@@ -1113,8 +1115,8 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c"># Creates INSTANCE attribute</span>
-<span class="n">Container</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">100</span>           <span class="c"># Overwrites CLASS attribute</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c1"># Creates INSTANCE attribute</span>
+<span class="n">Container</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">100</span>           <span class="c1"># Overwrites CLASS attribute</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -1189,7 +1191,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 
@@ -1198,7 +1200,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
 
-<span class="n">a</span><span class="o">.</span><span class="n">print_data</span><span class="p">()</span>          <span class="c"># &lt;&lt;&lt; This is better</span>
+<span class="n">a</span><span class="o">.</span><span class="n">print_data</span><span class="p">()</span>          <span class="c1"># &lt;&lt;&lt; This is better</span>
 <span class="n">Container</span><span class="o">.</span><span class="n">print_data</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 
@@ -1284,13 +1286,13 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No juice!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No juice!&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">False</span>
     
     <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span>
@@ -1326,10 +1328,10 @@ True
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># orange.                  # tab completion behaviour?</span>
-<span class="c"># orange._                 # tab completion behaviour now?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># orange.                  # tab completion behaviour?</span>
+<span class="c1"># orange._                 # tab completion behaviour now?</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span><span class="p">)</span>
-<span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">True</span>    <span class="c"># bad!</span>
+<span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">True</span>    <span class="c1"># bad!</span>
 </pre></div>
 
 </div>
@@ -1365,13 +1367,13 @@ True
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No juice!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="k">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No juice!&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="kc">False</span>
     
     <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span>
@@ -1389,9 +1391,9 @@ True
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># apple._                       # tab completion behaviour?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># apple._                       # tab completion behaviour?</span>
 <span class="n">apple</span><span class="o">.</span><span class="n">juice</span><span class="p">()</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="k">True</span>   <span class="c"># Definitely bad!</span>
+<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># Definitely bad!</span>
 <span class="n">apple</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
 </pre></div>
 
@@ -1431,7 +1433,7 @@ True
 <div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
 </pre></div>
 
 </div>
@@ -1469,9 +1471,9 @@ True
 <div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c"># Note the base __init__ is overridden in</span>
-    <span class="c"># Child class</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1"># Note the base __init__ is overridden in</span>
+    <span class="c1"># Child class</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>     
         <span class="k">pass</span>
     <span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1520,7 +1522,7 @@ True
 <div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Plottable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Plottable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
@@ -1869,7 +1871,7 @@ IQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">dir</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> 
 </pre></div>
 
 </div>
@@ -1953,7 +1955,7 @@ IQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Wave</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Wave</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">=</span> <span class="n">freq</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
@@ -1961,13 +1963,13 @@ IQAAAABJRU5ErkJggg==
     
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;RETURNS the string for printing&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s">&quot;Wave frequency: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;Wave frequency: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wave2</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">&lt;</span> <span class="n">wave2</span><span class="o">.</span><span class="n">freq</span>
 
 <span class="n">wav_low</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">wav_high</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c"># A high frequency wave</span>
+<span class="n">wav_high</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># A high frequency wave</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">wav_high</span><span class="p">)</span>
 <span class="n">wav_low</span> <span class="o">&lt;</span> <span class="n">wav_high</span>
@@ -2006,7 +2008,7 @@ IQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
 </pre></div>
 
 </div>
@@ -2101,10 +2103,10 @@ IQAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
 <span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
-    <span class="n">sheet</span> <span class="o">=</span> <span class="s">&#39;./css/custom.css&#39;</span>
-    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
+    <span class="n">sheet</span> <span class="o">=</span> <span class="s1">&#39;./css/custom.css&#39;</span>
+    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
     <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
 <span class="n">css_styling</span><span class="p">()</span>
 </pre></div>

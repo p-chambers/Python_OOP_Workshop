@@ -52,8 +52,10 @@
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
 .highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
 .highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
 .highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
@@ -174,10 +176,10 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
 <span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
-    <span class="n">sheet</span> <span class="o">=</span> <span class="s">&#39;../css/custom.css&#39;</span>
-    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
+    <span class="n">sheet</span> <span class="o">=</span> <span class="s1">&#39;../css/custom.css&#39;</span>
+    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
     <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
 <span class="n">css_styling</span><span class="p">()</span>
 </pre></div>
@@ -372,7 +374,7 @@ div.text_cell_render{
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">os</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -426,7 +428,7 @@ plt.show()</code></p>
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Implement the SquareImage class here:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Implement the SquareImage class here:</span>
 </pre></div>
 
 </div>
@@ -439,9 +441,9 @@ plt.show()</code></p>
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># The image file names</span>
-<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;img1.pgm&#39;</span><span class="p">,</span> <span class="s">&#39;img2.pgm&#39;</span><span class="p">,</span> <span class="s">&#39;img3.pgm&#39;</span><span class="p">,</span> <span class="s">&#39;img4.pgm&#39;</span><span class="p">]</span>
-<span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The image file names</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;img1.pgm&#39;</span><span class="p">,</span> <span class="s1">&#39;img2.pgm&#39;</span><span class="p">,</span> <span class="s1">&#39;img3.pgm&#39;</span><span class="p">,</span> <span class="s1">&#39;img4.pgm&#39;</span><span class="p">]</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -464,17 +466,17 @@ plt.show()</code></p>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Instantiate the class and plot each picture. </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate the class and plot each picture. </span>
 <span class="n">imgs</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-    <span class="c"># Produce an instance of SquareImage, passing &#39;f&#39; as an argument</span>
-    <span class="c"># image = ...</span>
+    <span class="c1"># Produce an instance of SquareImage, passing &#39;f&#39; as an argument</span>
+    <span class="c1"># image = ...</span>
     
     <span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">imgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>           <span class="c"># objects are first class instances: add to a list</span>
+    <span class="n">imgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>           <span class="c1"># objects are first class instances: add to a list</span>
     
-    <span class="c"># Use the &#39;plot&#39; method to plot the instance</span>
-    <span class="c"># ...</span>
+    <span class="c1"># Use the &#39;plot&#39; method to plot the instance</span>
+    <span class="c1"># ...</span>
     
 </pre></div>
 
@@ -492,11 +494,11 @@ plt.show()</code></p>
 <span class="ansired">---------------------------------------------------------------------------</span>
 <span class="ansired">NameError</span>                                 Traceback (most recent call last)
 <span class="ansigreen">&lt;ipython-input-5-15041236129a&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      5</span>     <span class="ansired"># image = ...</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">      6</span> <span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 7</span><span class="ansiyellow">     </span>print<span class="ansiyellow">(</span>image<span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      8</span>     imgs<span class="ansiyellow">.</span>append<span class="ansiyellow">(</span>image<span class="ansiyellow">)</span>           <span class="ansired"># objects are first class instances: add to a list</span><span class="ansiyellow"></span>
-<span class="ansigreen">      9</span> <span class="ansiyellow"></span>
+<span class="ansigreen">      5</span>     <span class="ansired"># image = ...</span><span class="ansiblue"></span><span class="ansiblue"></span>
+<span class="ansigreen">      6</span> <span class="ansiblue"></span>
+<span class="ansigreen">----&gt; 7</span><span class="ansired">     </span>print<span class="ansiblue">(</span>image<span class="ansiblue">)</span><span class="ansiblue"></span>
+<span class="ansigreen">      8</span>     imgs<span class="ansiblue">.</span>append<span class="ansiblue">(</span>image<span class="ansiblue">)</span>           <span class="ansired"># objects are first class instances: add to a list</span><span class="ansiblue"></span>
+<span class="ansigreen">      9</span> <span class="ansiblue"></span>
 
 <span class="ansired">NameError</span>: name &apos;image&apos; is not defined</pre>
 </div>
@@ -532,7 +534,7 @@ plt.show()</code></p>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Create an &#39;empty&#39; SquareImage </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create an &#39;empty&#39; SquareImage </span>
 <span class="n">combined</span> <span class="o">=</span> <span class="n">SquareImage</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">combined</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
 </pre></div>
@@ -551,9 +553,9 @@ plt.show()</code></p>
 <span class="ansired">---------------------------------------------------------------------------</span>
 <span class="ansired">NameError</span>                                 Traceback (most recent call last)
 <span class="ansigreen">&lt;ipython-input-6-ef7780f2a94f&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      1</span> <span class="ansired"># Create an &apos;empty&apos; SquareImage</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>combined <span class="ansiyellow">=</span> SquareImage<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
-<span class="ansigreen">      3</span> print<span class="ansiyellow">(</span>combined<span class="ansiyellow">.</span>z<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      1</span> <span class="ansired"># Create an &apos;empty&apos; SquareImage</span><span class="ansiblue"></span><span class="ansiblue"></span>
+<span class="ansigreen">----&gt; 2</span><span class="ansired"> </span>combined <span class="ansiblue">=</span> SquareImage<span class="ansiblue">(</span><span class="ansiblue">)</span><span class="ansiblue"></span>
+<span class="ansigreen">      3</span> print<span class="ansiblue">(</span>combined<span class="ansiblue">.</span>z<span class="ansiblue">)</span><span class="ansiblue"></span>
 
 <span class="ansired">NameError</span>: name &apos;SquareImage&apos; is not defined</pre>
 </div>
@@ -578,12 +580,12 @@ plt.show()</code></p>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># EXERCISE: Loop over the list of images and add on each image&#39;s z values to `combined&#39;:</span>
-<span class="c"># ...</span>
-<span class="c"># ...</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># EXERCISE: Loop over the list of images and add on each image&#39;s z values to `combined&#39;:</span>
+<span class="c1"># ...</span>
+<span class="c1"># ...</span>
 
 
-<span class="c"># Plot</span>
+<span class="c1"># Plot</span>
 <span class="n">combined</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 
@@ -601,9 +603,9 @@ plt.show()</code></p>
 <span class="ansired">---------------------------------------------------------------------------</span>
 <span class="ansired">NameError</span>                                 Traceback (most recent call last)
 <span class="ansigreen">&lt;ipython-input-7-88f1acffde1b&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
-<span class="ansigreen">      5</span> <span class="ansiyellow"></span>
-<span class="ansigreen">      6</span> <span class="ansired"># Plot</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
-<span class="ansigreen">----&gt; 7</span><span class="ansiyellow"> </span>combined<span class="ansiyellow">.</span>plot<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      5</span> <span class="ansiblue"></span>
+<span class="ansigreen">      6</span> <span class="ansired"># Plot</span><span class="ansiblue"></span><span class="ansiblue"></span>
+<span class="ansigreen">----&gt; 7</span><span class="ansired"> </span>combined<span class="ansiblue">.</span>plot<span class="ansiblue">(</span><span class="ansiblue">)</span><span class="ansiblue"></span>
 
 <span class="ansired">NameError</span>: name &apos;combined&apos; is not defined</pre>
 </div>
@@ -618,9 +620,22 @@ plt.show()</code></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Solutions"><a href="../soln/02-Predator_prey.html">Solutions</a><a class="anchor-link" href="#Solutions">&#182;</a></h1>
+<h1 id="Solutions"><a href="../soln/02-Classes_basics.html">Solutions</a><a class="anchor-link" href="#Solutions">&#182;</a></h1>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
