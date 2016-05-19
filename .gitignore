@@ -1,0 +1,5 @@
+*.DS_Store
+Hans_notes.txt
+/soln/None*
+*.ipynb_checkpoints
+*None*.png
