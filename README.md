@@ -33,11 +33,7 @@ Teaching material is largely in Jupyter Notebook format, and can be followed in 
 
 2. Clone and view the `Index.ipynb` slides (as in 1.) as a raw notebook (`View > Cell Toolbar > Raw Cell Format`)
 
-3. Clone (as in 1.) and view the static html slideshow with
-
-  > `make serve`
-
-4. Viewing directly on Github (not recommended)
+3. Viewing directly on Github Pages []()
 
 
 Authors
