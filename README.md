@@ -19,24 +19,27 @@ Prior knowledge of programming in Python is assumed, including e.g. lists, for l
 
 Getting Started
 ---------------
-Teaching material is largely in Jupyter Notebook format, and can be followed in several ways (in order of preference):
+Teaching material is largely in Jupyter Notebook format, and can be followed by either:
 
 1. Cloning this repository with 
 
   > `git clone https://github.com/ngcm/summer-academy-2016.git`
 
-  and viewing the 'Index.ipynb' as a live notebook slideshow with
+  and viewing the 'index.ipynb' as a jupyter notebook with
 
-  > `jupyter notebook Index.ipynb`
+  > `jupyter notebook index.ipynb`
 
-  This requires the [RISE](https://github.com/damianavila/RISE) package to be installed.
-
-2. Clone and view the `Index.ipynb` slides (as in 1.) as a raw notebook (`View > Cell Toolbar > Raw Cell Format`)
-
-3. Viewing directly on Github Pages []()
+2. Viewing directly on Github
+    - [full material](http://p-chambers.github.io/Python_OOP_Workshop/)
+    - [slides](http://p-chambers.github.io/Python_OOP_Workshop/index.slides.html)
 
 
 Authors
 -------
 Paul Chambers
+
+Demonstrators
+-------------
+Ioannis Begleris, Jonathon Waters
+
 
