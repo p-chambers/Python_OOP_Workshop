@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>index</title>
+<title>03-Classes_pt2</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -174,11 +174,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Python-Object-Orientation-Workshop">Python Object Orientation Workshop<a class="anchor-link" href="#Python-Object-Orientation-Workshop">&#182;</a></h1><p>Paul Chambers</p>
-<p>P.R.Chambers@soton.ac.uk</p>
-<p><img style="float: left;" src="images/ngcm.png">
-<img style="float: right;" src="images/epsrc_logo.jpg"></p>
-
+<h1 id="Python-OOP-2:-Inheritance-and-Magic-Methods">Python OOP 2: Inheritance and Magic Methods<a class="anchor-link" href="#Python-OOP-2:-Inheritance-and-Magic-Methods">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -187,12 +183,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">&#182;</a></h2><ul>
-<li>Python 3, IPython 4+</li>
-<li>Numpy, Matplotlib</li>
-<li>Download material and exercises from github:
-<a href="https://github.com/p-chambers/Python_OOP_Workshop">https://github.com/p-chambers/Python_OOP_Workshop</a></li>
-</ul>
+<p>The purpose of this exercise is to test your new found knowledge of inheritance using the classical example of shapes. You have been given the base class (<code>AbstractShape</code>) which has some common functions for certain derived shapes, such as a triangle and a rectangle.</p>
 
 </div>
 </div>
@@ -202,1908 +193,9 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Run this cell before trying examples</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Intro-to-Python-OOP">Intro to Python OOP<a class="anchor-link" href="#Intro-to-Python-OOP">&#182;</a></h1><h4 id="(For-The-Classy-Programmer)">(For The Classy Programmer)<a class="anchor-link" href="#(For-The-Classy-Programmer)">&#182;</a></h4><blockquote><div align="center" style="width:600px; text-align:centered; font-style:italic; font-size:18pt">
-"In the class-based object-oriented programming paradigm, object refers to a particular instance of a class where the object can be a combination of variables, functions, and data structures."
-</div>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Why-OOP?">Why OOP?<a class="anchor-link" href="#Why-OOP?">&#182;</a></h2><ul>
-<li>Naturally structured data</li>
-<li>Functions used in context</li>
-<li>Reduce duplicate code</li>
-<li>Maintainability in large codes/software</li>
-<li><a href="http://inventwithpython.com/blog/2014/12/02/why-is-object-oriented-programming-useful-with-an-role-playing-game-example/">Many other reasons</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="OOP-in-Scientific-Computing">OOP in Scientific Computing<a class="anchor-link" href="#OOP-in-Scientific-Computing">&#182;</a></h3><ul>
-<li>Java, <code>C++</code> and Python designed for OOP</li>
-<li><strong>Everything</strong> in Python is an object</li>
-<li>Scientific libraries, visualisation tools etc.</li>
-<li>Pseudo Object Orientation in <code>C</code> and <code>Fortran</code></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-can-this-course-help-me">How can this course help me<a class="anchor-link" href="#How-can-this-course-help-me">&#182;</a></h3><ul>
-<li>Language in OOP is very different<ul>
-<li>Learn language used in eg. C++, Java</li>
-</ul>
-</li>
-<li>Ability to <strong>read</strong> code is essential</li>
-<li>Write/migrate code for community library<ul>
-<li>Better world! Work recognition etc...</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Language:-Four-Fundamental-Concepts">Language: Four Fundamental Concepts<a class="anchor-link" href="#Language:-Four-Fundamental-Concepts">&#182;</a></h3><ul>
-<li><p><em>Inheritance</em></p>
-<ul>
-<li>Reuse code by deriving from existing classes</li>
-</ul>
-</li>
-<li><p><em>Encapsulation</em></p>
-<ul>
-<li>Data hiding</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Language:-Four-Fundamental-Concepts-(2)">Language: Four Fundamental Concepts (2)<a class="anchor-link" href="#Language:-Four-Fundamental-Concepts-(2)">&#182;</a></h3><ul>
-<li><p><em>Abstraction</em></p>
-<ul>
-<li>Simplified representation of complexity</li>
-</ul>
-</li>
-<li><p><em>Polymorphism</em></p>
-<ul>
-<li>API performs differently based on data type</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note:</strong> Encapsulation is sometimes also used in OOP to describe the grouping of data with methods. It is however more common for texts to use it to describe the hiding of data as will be done here.</p>
-<p>Useful explanations of these concepts for Python can also be found <a href="http://zetcode.com/lang/python/oop/">here</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Material-we-will-cover">Material we will cover<a class="anchor-link" href="#Material-we-will-cover">&#182;</a></h3><ul>
-<li><code>Classes</code></li>
-<li>Initialization and <code>__init__</code></li>
-<li><code>self</code></li>
-<li>Python 2.X vs 3.X</li>
-<li>Encapsulation with underscore '<code>_</code>'</li>
-<li>Inheritance</li>
-<li>Magic operators</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Structured-data:-Numpy-dtypes">Structured data: Numpy dtypes<a class="anchor-link" href="#Structured-data:-Numpy-dtypes">&#182;</a></h2><ul>
-<li>Not a class, but motivational example</li>
-<li>Structured associative data</li>
-<li>Similar to C <code>struct</code></li>
-<li>Identifiers to indicate data type</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Data-about-people">Example: Data about people<a class="anchor-link" href="#Example:-Data-about-people">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;#Name    Height    Weight</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;John     180    80.5</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Paul     172    75.1</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;George   185    78.6</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Ringo    170    76.5</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Notice that the argument is a list of tuples</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Height&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-                <span class="p">(</span><span class="s">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[(&quot;b&apos;John&apos;&quot;, 180, 80.5) (&quot;b&apos;Paul&apos;&quot;, 172, 75.1) (&quot;b&apos;George&apos;&quot;, 185, 78.6)
- (&quot;b&apos;Ringo&apos;&quot;, 170, 76.5)]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;Name&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;{} has weight {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;Name&#39;</span><span class="p">],</span>
-                                <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;Weight&#39;</span><span class="p">]))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&quot;b&apos;John&apos;&quot; &quot;b&apos;Paul&apos;&quot; &quot;b&apos;George&apos;&quot; &quot;b&apos;Ringo&apos;&quot;]
-b&apos;John&apos; has weight 80.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><a href="exercises/01-dtypes.ipynb">Exercise: Load image data with dtype structured array</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>... Data is structured, but not elegant</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Classes:-Basics">Classes: Basics<a class="anchor-link" href="#Classes:-Basics">&#182;</a></h2><ul>
-<li>Attributes (data)</li>
-<li>Methods    (Functions operating on the attributes)</li>
-<li>'First class citizens': Same rights as core types<ul>
-<li>pass to functions, store as variables etc.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Numpy-arrays-showing-how-it's-done">Example: Numpy arrays showing how it's done<a class="anchor-link" href="#Example:-Numpy-arrays-showing-how-it's-done">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Numpy arrays are classes</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">__class__</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &apos;numpy.ndarray&apos;&gt;
-&lt;class &apos;numpy.ndarray&apos;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># We want to operate on the array: try numpy cumulative sum function</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 0  1  7 15 27]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># np.cumsum(&#39;helloworld&#39;)   # Should we expect this to work?</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Numpy-arrays-showing-how-it's-done-(ctd.)">Example: Numpy arrays showing how it's done (ctd.)<a class="anchor-link" href="#Example:-Numpy-arrays-showing-how-it's-done-(ctd.)">&#182;</a></h4><ul>
-<li><p>We only know what a cumulative sum means for a narrow scope of data types</p>
-</li>
-<li><p>Group them together with an object!</p>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># cumsum is a method belonging to a</span>
-<span class="n">a</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([ 0,  1,  7, 15, 27])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Simple-class">Example: Simple class<a class="anchor-link" href="#Example:-Simple-class">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Bob&#39;</span>     
-        <span class="c"># Attribute</span>
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>         <span class="c"># Method (more on &#39;self&#39; later)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
-
-<span class="n">agreeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>         <span class="c"># &#39;Instantiate&#39; the class</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">agreeter</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">agreeter</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;__main__.Greeter object at 0x2b3d6e98b6d8&gt;
-[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__dict__&apos;, &apos;__dir__&apos;, &apos;__doc__&apos;, &apos;__eq__&apos;, &apos;__format__&apos;, &apos;__ge__&apos;, &apos;__getattribute__&apos;, &apos;__gt__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__le__&apos;, &apos;__lt__&apos;, &apos;__module__&apos;, &apos;__ne__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;__weakref__&apos;, &apos;hello&apos;, &apos;name&apos;]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Note that we don&#39;t pass an argument to hello!</span>
-<span class="n">agreeter</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;My name is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">agreeter</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Hello World
-My name is Bob
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Classes:-Initialisation-and-self">Classes: Initialisation and <code>self</code><a class="anchor-link" href="#Classes:-Initialisation-and-self">&#182;</a></h2><ul>
-<li><code>__init__</code> class method</li>
-<li>Called on creation of an instance</li>
-<li>Convention: <code>self</code> = instance</li>
-<li><strong>Implicit passing</strong> of self, <strong>explicit receive</strong></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note:</strong> Passing of <code>self</code> is done implicitly in other lagnauges e.g. C++ and Java, and proponents of those languages may argue that this is better. "<em>Explicit is better than implicit</em>" is <a href="https://www.python.org/dev/peps/pep-0020/">simply the python way</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="What-is-an-&quot;instance&quot;?">What is an "instance"?<a class="anchor-link" href="#What-is-an-&quot;instance&quot;?">&#182;</a></h3><ul>
-<li><code>Class</code> is like a type</li>
-<li>Instance is a specific realisation of that type</li>
-<li>eg. "Hello World" is an instance of string</li>
-<li>Instances attributes are not shared</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Classes:-Initialisation-vs-Construction">Classes: Initialisation vs Construction<a class="anchor-link" href="#Classes:-Initialisation-vs-Construction">&#182;</a></h3><ul>
-<li>Initialisation changes the instance when it is made</li>
-<li>... <code>__init__</code> is not <em>technically</em> Construction (see: C++)</li>
-<li><code>__new__</code> '<em>constructs</em>' the instance before <code>__init__</code></li>
-<li><code>__init__</code> then initialises the content</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>More info:</strong> The Constructor <em>creates</em> the instance, and the Initialiser <em>Initialises</em> its contents. Most languages e.g. C++ refer to these interchangably and perform these steps together, however the new style classes in Python splits the process.</p>
-<p>The difference is quite fine, and for most purposes we do not need to redefine the behaviour of <code>__new__</code>. This is discussed in several Stack Overflow threads, e.g.</p>
-<ul>
-<li><p><a href="http://stackoverflow.com/questions/4859129/python-and-python-c-api-new-versus-init">Python (and Python C API): <code>__new__</code> versus <code>__init__</code></a></p>
-</li>
-<li><p><a href="http://stackoverflow.com/questions/674304/pythons-use-of-new-and-init">Python's use of <code>__new__</code> and <code>__init__</code>?</a></p>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Class-Initialisation">Example: Class Initialisation<a class="anchor-link" href="#Example:-Class-Initialisation">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
-
-<span class="n">a_instance</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a_instance</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Hello
-&lt;class &apos;__main__.A&apos;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Old-classes-vs-New-classes">Old classes vs New classes<a class="anchor-link" href="#Old-classes-vs-New-classes">&#182;</a></h3><ul>
-<li>Inheritance behaviour is different</li>
-<li>New classes inherit from <code>object</code> (more later...)</li>
-<li>Old classes removed in Python 3</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-New-class-default-Python-3">Example: New class default Python 3<a class="anchor-link" href="#Example:-New-class-default-Python-3">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c"># This means &#39;inherit from object&#39;</span>
-    <span class="k">pass</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c"># Would give &lt;type &#39;classobj&#39;&gt;</span>
-                          <span class="c"># in Python 2</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">NewSyntax</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &apos;type&apos;&gt;
-&lt;class &apos;type&apos;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Backwards compatibility: inherit <code>object</code> in Py3</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Ok so up until now we haven't been inheriting object, but now that we know about it and that it can cause strange bugs we ought to inherit object from now.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Instance-attributes-and-Class-attributes">Instance attributes and Class attributes<a class="anchor-link" href="#Instance-attributes-and-Class-attributes">&#182;</a></h3><ul>
-<li>Instance attributes definition: <code>self.attribute = value</code></li>
-<li>Class attributes defined outside functions (<em>class scope</em>)</li>
-<li>Class attributes are shared by all instances</li>
-<li>Be careful with class attributes</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Defining-Instance-attributes/methods">Example: Defining Instance attributes/methods<a class="anchor-link" href="#Example:-Defining-Instance-attributes/methods">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Simple container which stores an array as an instance attribute</span>
-<span class="sd">    and an instance method&quot;&quot;&quot;</span>
-    <span class="c"># before we declared class attributes up here ...</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s">&#39;bx&#39;</span><span class="p">)</span>
-
-<span class="n">mydata</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>      <span class="c"># 11 ia passed as &#39;N&#39; to __init__</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mydata</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>      <span class="c"># __dict__ is where the attr: value</span>
-                            <span class="c">#  pairs are stored!</span>
-<span class="n">mydata</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>{&apos;data&apos;: array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1. ])}
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Class-attributes-vs-instance-attributes">Example: Class attributes vs instance attributes<a class="anchor-link" href="#Example:-Class-attributes-vs-instance-attributes">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>    <span class="c"># class attribute</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
-
-<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(),</span> <span class="n">Container</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 0.    0.25  0.5   0.75  1.  ]
-[ 0.    0.25  0.5   0.75  1.  ]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c"># Creates INSTANCE attribute</span>
-<span class="n">Container</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">100</span>           <span class="c"># Overwrites CLASS attribute</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0
-100
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Class-vs-Instance-attributes:-priority">Class vs Instance attributes: priority<a class="anchor-link" href="#Class-vs-Instance-attributes:-priority">&#182;</a></h3><p><img src="images/class_vs_instance_priority.png" alt="Class vs instance attribute priority diagram"></p>
-<ul>
-<li>Source: <a href="https://www.toptal.com/python/python-class-attributes-an-overly-thorough-guide">toptotal.com</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note</strong>: There's a couple of things going on in this example which are worth elaborating on. By specifying <code>ClassName.attribute</code>, in this case <code>Container.data = 100</code> we've overwritten the value of <code>data</code> that EVERY instance of the <code>Container</code> class will access. Hence printing <code>b.data</code> gives the expected result.</p>
-<p>By setting <code>a.data</code> at the same time, we have set an <em>instance</em> attribute, which is given priority and called first even though we overwrote the class attribute after assigning this.</p>
-<p>This could create a hard to track bug. To avoid it:</p>
-<ul>
-<li>Stick to instance variables unless you specifically need to share data e.g. constants, total number or list of things that are shared</li>
-<li>Don't overwrite things you know are class attributes with <code>instance.attr</code> unless you really know what you're doing (even then, it's probably better and more readable to make it an instance attribute)</li>
-</ul>
-<p>For a really in depth explanation of class vs instance attributes, see either of the following links:</p>
-<ul>
-<li><p><a href="http://www.python-course.eu/python3_class_and_instance_attributes.php">python3_class_and_instance_attributes</a></p>
-</li>
-<li><p><a href="https://www.toptal.com/python/python-class-attributes-an-overly-thorough-guide">python-class-attributes-an-overly-thorough-guide</a></p>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Implicit-vs-Explicit-passing-Instance">Example: Implicit vs Explicit passing Instance<a class="anchor-link" href="#Example:-Implicit-vs-Explicit-passing-Instance">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">print_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-
-<span class="n">a</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
-
-<span class="n">a</span><span class="o">.</span><span class="n">print_data</span><span class="p">()</span>          <span class="c"># &lt;&lt;&lt; This is better</span>
-<span class="n">Container</span><span class="o">.</span><span class="n">print_data</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[ 0.   0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1. ]
-[ 0.   0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1. ]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><a href="exercises/02-Classes_basics.ipynb">Exercise: Python OOP 1: Basics and Initialisation with images</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Classes:-Encapsulation">Classes: Encapsulation<a class="anchor-link" href="#Classes:-Encapsulation">&#182;</a></h2><ul>
-<li>Hiding data from users (and developers)</li>
-<li>Use underscores '<code>_</code>' or '<code>__</code>'</li>
-<li>Useful if data changing should be controlled</li>
-<li><strong>Convention only in Python</strong> - not enforced!</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Single-vs-Double-Underscore">Single vs Double Underscore<a class="anchor-link" href="#Single-vs-Double-Underscore">&#182;</a></h3><ul>
-<li><p>Single underscore</p>
-<ul>
-<li>Nobody outside this class or derived classes should access or change</li>
-</ul>
-</li>
-<li><p>Double underscore</p>
-<ul>
-<li>Stronger attempt to enforce the above</li>
-<li>Also 'mangles' the attribute name with <code>instance._ClassName__Attribute</code></li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Data-hiding-&quot;protected&quot;,-single-underscore">Example: Data hiding "protected", single underscore<a class="anchor-link" href="#Example:-Data-hiding-&quot;protected&quot;,-single-underscore">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">True</span>
-
-    <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No juice!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">False</span>
-    
-    <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span>
-
-<span class="n">orange</span> <span class="o">=</span> <span class="n">Fruit</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">isempty</span><span class="p">())</span>
-<span class="n">orange</span><span class="o">.</span><span class="n">juice</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">isempty</span><span class="p">())</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>False
-True
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># orange.                  # tab completion behaviour?</span>
-<span class="c"># orange._                 # tab completion behaviour now?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span><span class="p">)</span>
-<span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">True</span>    <span class="c"># bad!</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>False
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Data-hiding-&quot;private&quot;,-double-underscore">Example: Data hiding "private", double underscore<a class="anchor-link" href="#Example:-Data-hiding-&quot;private&quot;,-double-underscore">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="k">True</span>
-
-    <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No juice!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="k">False</span>
-    
-    <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span>
-
-<span class="n">apple</span> <span class="o">=</span> <span class="n">Fruit</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># apple._                       # tab completion behaviour?</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">juice</span><span class="p">()</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="k">True</span>   <span class="c"># Definitely bad!</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>For an entertaining view of encapsulation, see <a href="http://radek.io/2011/07/21/private-protected-and-public-in-python/">this blog</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Classes:-Inheritance">Classes: Inheritance<a class="anchor-link" href="#Classes:-Inheritance">&#182;</a></h2><ul>
-<li>Group multiple objects and methods</li>
-<li><code>Child</code>/<code>Derived</code> class inherits from <code>Parent</code>/<code>Base</code> </li>
-<li>Reduce duplicate code</li>
-<li>Maintanable: changes to base falls through to all</li>
-<li>Beware multiple inheritance rules - we won't cover this</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Simple-inheritance">Example: Simple inheritance<a class="anchor-link" href="#Example:-Simple-inheritance">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c"># Note the base __init__ is overridden in</span>
-    <span class="c"># Child class</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>     
-        <span class="k">pass</span>
-    <span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">*</span><span class="mi">2</span>
-
-<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-
-<span class="n">achild</span> <span class="o">=</span> <span class="n">Child</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]))</span>
-<span class="n">achild</span><span class="o">.</span><span class="n">double</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([ 0,  2, 10, 20])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Calling-parent-methods-with-super">Example: Calling parent methods with <code>super</code><a class="anchor-link" href="#Example:-Calling-parent-methods-with-super">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Plottable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>    
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-    
-<span class="k">class</span> <span class="nc">SinWave</span><span class="p">(</span><span class="n">Plottable</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SinWave</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)))</span>
-
-<span class="k">class</span> <span class="nc">CosWave</span><span class="p">(</span><span class="n">Plottable</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CosWave</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)))</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-<span class="n">mysin</span> <span class="o">=</span> <span class="n">SinWave</span><span class="p">();</span>   <span class="n">mysquare</span> <span class="o">=</span> <span class="n">CosWave</span><span class="p">()</span>
-<span class="n">mysin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">);</span>      <span class="n">mysquare</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-IQAAAABJRU5ErkJggg==
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Classes:-Magic-Methods">Classes: Magic Methods<a class="anchor-link" href="#Classes:-Magic-Methods">&#182;</a></h2><ul>
-<li>The workhorse of how things 'just work' in Python</li>
-<li><code>object</code> &amp; builtin types come with many of these</li>
-<li>Surrounded by double underscores</li>
-<li>We've seen one already: <strong><code>__init__</code>!</strong></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-The-magic-methods-of-object">Example: The magic methods of object<a class="anchor-link" href="#Example:-The-magic-methods-of-object">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">dir</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[&apos;__class__&apos;,
- &apos;__delattr__&apos;,
- &apos;__dir__&apos;,
- &apos;__doc__&apos;,
- &apos;__eq__&apos;,
- &apos;__format__&apos;,
- &apos;__ge__&apos;,
- &apos;__getattribute__&apos;,
- &apos;__gt__&apos;,
- &apos;__hash__&apos;,
- &apos;__init__&apos;,
- &apos;__le__&apos;,
- &apos;__lt__&apos;,
- &apos;__ne__&apos;,
- &apos;__new__&apos;,
- &apos;__reduce__&apos;,
- &apos;__reduce_ex__&apos;,
- &apos;__repr__&apos;,
- &apos;__setattr__&apos;,
- &apos;__sizeof__&apos;,
- &apos;__str__&apos;,
- &apos;__subclasshook__&apos;]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Magic-Methods:-Closer-look">Magic Methods: Closer look<a class="anchor-link" href="#Magic-Methods:-Closer-look">&#182;</a></h3><ul>
-<li><p><code>__lt__</code>:</p>
-<ul>
-<li>Called when evaluating
-<pre><code>  a &lt; b</code></pre>
-</li>
-</ul>
-</li>
-<li><p><code>__str__</code></p>
-<ul>
-<li>Called by the print function</li>
-</ul>
-</li>
-<li><p>All magics can be overridden</p>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-overriding-__str__-and-__lt__-magic-methods">Example: overriding <code>__str__</code> and <code>__lt__</code> magic methods<a class="anchor-link" href="#Example:-overriding-__str__-and-__lt__-magic-methods">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Wave</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">=</span> <span class="n">freq</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
-                            <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span> <span class="o">*</span> <span class="n">freq</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;RETURNS the string for printing&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s">&quot;Wave frequency: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span>
-    
-    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wave2</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">&lt;</span> <span class="n">wave2</span><span class="o">.</span><span class="n">freq</span>
-
-<span class="n">wav_low</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">wav_high</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c"># A high frequency wave</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">wav_high</span><span class="p">)</span>
-<span class="n">wav_low</span> <span class="o">&lt;</span> <span class="n">wav_high</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Wave frequency: 50
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note</strong>: Magic methods are very briefly introduced here. For an extensive overview of magic methods for Python classes, view <a href="http://www.rafekettler.com/magicmethods.html">Rafe Kettlers blog</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><a href="exercises/03-Classes_pt2.ipynb">Exercise: Python OOP2: Inheritance and Magic Methods using shapes</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Extra-Material">Extra Material<a class="anchor-link" href="#Extra-Material">&#182;</a></h2><ul>
-<li><p>Harder exercise (if time)</p>
-</li>
-<li><p>Should test your knowledge from this course</p>
-</li>
-</ul>
-<blockquote><p><a href="exercises/04-Predator_prey.ipynb">Exercise: Predator Prey </a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Other things worth looking at (an incredibly biased opinion):<ul>
-<li><a href="https://pythonhosted.org/an_example_pypi_project/setuptools.html">Building Pythonic Packages with setuptools</a></li>
-<li><a href="https://pytest.org/latest/contents.html">Unit testing with py.test</a></li>
-<li><a href="http://conda.pydata.org/docs/using/envs.html">Conda Environments</a></li>
-<li>Play with a visualisation/GUI package!</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h2><ul>
-<li>Covered the language and concepts for Object Orientation (Transferable!)</li>
-<li>OOP Implementation in Python </li>
-<li><code>Read</code> the packages you use daily</li>
-<li>Create maintainable packages for yourself and scientific community</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Thank-You">Thank You<a class="anchor-link" href="#Thank-You">&#182;</a></h1><p>P.R.Chambers@soton.ac.uk</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
 <span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
-    <span class="n">sheet</span> <span class="o">=</span> <span class="s">&#39;./css/custom.css&#39;</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="s">&#39;../css/custom.css&#39;</span>
     <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
     <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
 <span class="n">css_styling</span><span class="p">()</span>
@@ -2117,7 +209,7 @@ IQAAAABJRU5ErkJggg==
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 /* 
@@ -2271,6 +363,438 @@ div.text_cell_render{
 
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tasks">Tasks<a class="anchor-link" href="#Tasks">&#182;</a></h2><ol>
+<li><p>Create a Rectangle class which also derives for AbstractShape, with methods</p>
+<ul>
+<li><p><strong><strong>init</strong>(self, base, height, center)</strong>, which ONLY passes all arguments to the base class <code>__init__</code> via</p>
+
+<pre><code> super(Rectangle, self).__init__(base, height, center)</code></pre>
+</li>
+<li><p><strong>get_vertices(self)</strong>, which calculates and returns an array of vertices.</p>
+<ul>
+<li>vertices should contain the vertex (x,y) points of a rectangle centered at the center point <code>self.center</code>: numpy array with shape (4,2)</li>
+<li>Note that self.vertices in stored in the base class using a call to this method!</li>
+<li><strong>If you're struggling, the contents of this function are provided at the end of this notebook</strong></li>
+</ul>
+</li>
+<li><p><strong>get_area(self)</strong>, which calculates and returns the area of self (use attributes, not inputs)</p>
+</li>
+<li><p>Points to note:</p>
+<ul>
+<li>The code for testing this class has been provided for you</li>
+<li>Try to understand the order in which the initialisation functions are called.</li>
+<li>Which methods are being called (from which classes) in the base initialiser?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Repeat 1. above for a Triangle class</p>
+<ul>
+<li>Class layout is identical, but <strong>get_vertices</strong> and <strong>get_area</strong> different</li>
+<li><strong>If you're struggling, the contents of this function are provided at the end of this notebook</strong></li>
+</ul>
+</li>
+<li><p>You have also been given a <code>Cuboid</code> class which has inherited a plot method, but this will plot only the 2D square</p>
+<ul>
+<li>Override the <strong>plot(self, ax)</strong> method to scatter self.vertices (x, y, z) on the input axes</li>
+<li>Note that the input axes given in the test code are already 3D axes - you do not need to implement this</li>
+</ul>
+</li>
+<li><p>See the end of this notebook for the magic methods extension</p>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="k">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d.art3d</span> <span class="k">import</span> <span class="n">Poly3DCollection</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">AbstractShape</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A class that shares common methods between rectangles and triangles:</span>
+
+<span class="sd">    Note that some methods raise an error - what we are doing here is </span>
+<span class="sd">    actually creating &#39;abstract methods&#39; which helps achieve a consistent</span>
+<span class="sd">    API through all derived classes =&gt; This is Polymorphism!</span>
+<span class="sd">    </span>
+<span class="sd">    See example 07-PredatorPrey for a more robust way of defining abstract </span>
+<span class="sd">    base classes</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">center</span><span class="p">):</span>
+        <span class="c"># Add all args as attributes- there are quicker/better ways</span>
+        <span class="c"># of doing this, but this is fine</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
+        
+        <span class="c"># Call some methods: This will do nothing unless the methods are </span>
+        <span class="c"># defined in the base classes!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_vertices</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_area</span><span class="p">()</span>
+
+        
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+        <span class="c"># First point must be repeated for a closed plot</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">get_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&#39;Base class method should not be called directly&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&#39;Base class method should not be called directly&#39;</span><span class="p">)</span>
+
+
+<span class="c"># Your classes here</span>
+<span class="c"># .................</span>
+
+
+
+
+<span class="k">class</span> <span class="nc">Cuboid</span><span class="p">(</span><span class="n">Rectangle</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">center</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cuboid</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">get_vertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">base2d</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Cuboid</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_vertices</span><span class="p">()</span>
+        <span class="n">midplane</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">midplane</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">base2d</span>
+        <span class="n">zshift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="o">/</span><span class="mf">2.</span><span class="p">])</span>
+        <span class="n">lower_plane</span> <span class="o">=</span> <span class="n">midplane</span> <span class="o">-</span> <span class="n">zshift</span>
+        <span class="n">upper_plane</span> <span class="o">=</span> <span class="n">midplane</span> <span class="o">+</span> <span class="n">zshift</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">lower_plane</span><span class="p">,</span> <span class="n">upper_plane</span><span class="p">])</span>
+
+
+<span class="c"># Helper functions:</span>
+
+<span class="k">def</span> <span class="nf">init_figure</span><span class="p">():</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+
+<span class="k">def</span> <span class="nf">init_3dfigure</span><span class="p">():</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">&#39;3d&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-3-2a42e97a0dcf&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">     42</span> <span class="ansiyellow"></span>
+<span class="ansigreen">     43</span> <span class="ansiyellow"></span>
+<span class="ansigreen">---&gt; 44</span><span class="ansiyellow"> </span><span class="ansigreen">class</span> Cuboid<span class="ansiyellow">(</span>Rectangle<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">     45</span>     <span class="ansigreen">def</span> __init__<span class="ansiyellow">(</span>self<span class="ansiyellow">,</span> base<span class="ansiyellow">,</span> height<span class="ansiyellow">,</span> depth<span class="ansiyellow">,</span> center<span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">     46</span>         self<span class="ansiyellow">.</span>depth <span class="ansiyellow">=</span> depth<span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Rectangle&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Test code for the rectangle class:</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">init_figure</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">))</span>
+    <span class="n">rect</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-4-89eaec46610f&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> <span class="ansired"># Test code for the rectangle class:</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>fig<span class="ansiyellow">,</span> ax <span class="ansiyellow">=</span> init_figure<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      3</span> <span class="ansigreen">for</span> i <span class="ansigreen">in</span> range<span class="ansiyellow">(</span><span class="ansicyan">1</span><span class="ansiyellow">,</span><span class="ansicyan">5</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">      4</span>     rect <span class="ansiyellow">=</span> Rectangle<span class="ansiyellow">(</span>base<span class="ansiyellow">=</span>i<span class="ansiyellow">,</span> height<span class="ansiyellow">=</span>i<span class="ansiyellow">,</span> center<span class="ansiyellow">=</span><span class="ansiyellow">(</span><span class="ansicyan">0.</span><span class="ansiyellow">,</span><span class="ansicyan">0.</span><span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      5</span>     rect<span class="ansiyellow">.</span>plot<span class="ansiyellow">(</span>ax<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;init_figure&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Test code for the triangle class:</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">init_figure</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">height</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">tri</span> <span class="o">=</span> <span class="n">Triangle</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">))</span>
+    <span class="n">tri</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-5-f8a12a9601a3&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> <span class="ansired"># Test code for the triangle class:</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>fig<span class="ansiyellow">,</span> ax <span class="ansiyellow">=</span> init_figure<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      3</span> <span class="ansiyellow"></span>
+<span class="ansigreen">      4</span> <span class="ansigreen">for</span> height <span class="ansigreen">in</span> range<span class="ansiyellow">(</span><span class="ansicyan">1</span><span class="ansiyellow">,</span><span class="ansicyan">5</span><span class="ansiyellow">)</span><span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">      5</span>     tri <span class="ansiyellow">=</span> Triangle<span class="ansiyellow">(</span>base<span class="ansiyellow">=</span><span class="ansicyan">4</span><span class="ansiyellow">,</span> height<span class="ansiyellow">=</span>height<span class="ansiyellow">,</span> center<span class="ansiyellow">=</span><span class="ansiyellow">(</span><span class="ansicyan">0.</span><span class="ansiyellow">,</span><span class="ansicyan">0.</span><span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;init_figure&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c">#Tests for the cuboid extension:</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">init_3dfigure</span><span class="p">()</span>
+
+<span class="n">cube</span> <span class="o">=</span> <span class="n">Cuboid</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">),</span> <span class="n">depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">cube</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-6-2faef32ce8c3&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> <span class="ansired">#Tests for the cuboid extension:</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>fig<span class="ansiyellow">,</span> ax <span class="ansiyellow">=</span> init_3dfigure<span class="ansiyellow">(</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      3</span> <span class="ansiyellow"></span>
+<span class="ansigreen">      4</span> cube <span class="ansiyellow">=</span> Cuboid<span class="ansiyellow">(</span>base<span class="ansiyellow">=</span><span class="ansicyan">2</span><span class="ansiyellow">,</span> height<span class="ansiyellow">=</span><span class="ansicyan">2</span><span class="ansiyellow">,</span> center<span class="ansiyellow">=</span><span class="ansiyellow">(</span><span class="ansicyan">0.</span><span class="ansiyellow">,</span><span class="ansicyan">0.</span><span class="ansiyellow">)</span><span class="ansiyellow">,</span> depth<span class="ansiyellow">=</span><span class="ansicyan">2</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      5</span> <span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;init_3dfigure&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Magic-Methods-Extension">Magic Methods Extension<a class="anchor-link" href="#Magic-Methods-Extension">&#182;</a></h2><ol>
+<li><p>Override the <code>__str__</code> magic method in the <code>AbstractShape</code> base class so that printing gives information about the area, base and height store in any shape instance</p>
+</li>
+<li><p>Override the iterator magic method in the <code>AbstractShape</code> base class so that iterating over any derived shape instance will iterate over its vertices</p>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Test code for __str__</span>
+<span class="n">square</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>               <span class="c"># Did this do what you expected?</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-7-5ed89ee9f88b&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> <span class="ansired"># Test code for __str__</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span>square <span class="ansiyellow">=</span> Rectangle<span class="ansiyellow">(</span><span class="ansicyan">4</span><span class="ansiyellow">,</span> <span class="ansicyan">4</span><span class="ansiyellow">,</span> center<span class="ansiyellow">=</span><span class="ansiyellow">(</span><span class="ansicyan">0.</span><span class="ansiyellow">,</span><span class="ansicyan">0.</span><span class="ansiyellow">)</span><span class="ansiyellow">)</span><span class="ansiyellow"></span>
+<span class="ansigreen">      3</span> print<span class="ansiyellow">(</span>square<span class="ansiyellow">)</span>               <span class="ansired"># Did this do what you expected?</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;Rectangle&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="c"># Test code for iterator</span>
+<span class="k">for</span> <span class="n">vertex</span> <span class="ow">in</span> <span class="n">square</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansired">---------------------------------------------------------------------------</span>
+<span class="ansired">NameError</span>                                 Traceback (most recent call last)
+<span class="ansigreen">&lt;ipython-input-8-4e4806718bb5&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">      1</span> <span class="ansired"># Test code for iterator</span><span class="ansiyellow"></span><span class="ansiyellow"></span>
+<span class="ansigreen">----&gt; 2</span><span class="ansiyellow"> </span><span class="ansigreen">for</span> vertex <span class="ansigreen">in</span> square<span class="ansiyellow">:</span><span class="ansiyellow"></span>
+<span class="ansigreen">      3</span>     print<span class="ansiyellow">(</span>vertex<span class="ansiyellow">)</span><span class="ansiyellow"></span>
+
+<span class="ansired">NameError</span>: name &apos;square&apos; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Cheat-Sheet">Cheat Sheet<a class="anchor-link" href="#Cheat-Sheet">&#182;</a></h2><ol>
+<li><p>Code for <code>Triangle.get_vertices</code>:</p>
+
+<pre><code> pts = np.ones([3, 2]) * self.center
+ pts[0,:] += np.array([-self.base/2., 0])
+ pts[1,:] += np.array([self.base/2., 0])
+ pts[2,:] += np.array([0, self.height])
+ return pts</code></pre>
+</li>
+<li><p>Code for <code>Rectangle.get_vertices</code>:</p>
+
+<pre><code> pts = np.ones([4, 2]) * self.center
+ xshift = self.base / 2.
+ yshift = self.height / 2.
+ pts[0,:] += np.array([-xshift, -yshift])
+ pts[1,:] += np.array([xshift, -yshift])
+ pts[2,:] += np.array([xshift, yshift])
+ pts[3,:] += np.array([-xshift, yshift])
+ return pts</code></pre>
+</li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Solutions"><a href="../soln/03-Classes_pt2.ipynb">Solutions</a><a class="anchor-link" href="#Solutions">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre> 
+</pre></div>
+
+</div>
 </div>
 </div>
 
