@@ -9,7 +9,7 @@ NOTEBOOKS=exercises/01-dtypes.html exercises/02-Classes_basics.html \
 		  soln/03-Classes_pt2.html soln/04-Predator_prey.html \
 
 slides:
-	jupyter nbconvert --to slides $(FLAGS) index
+	jupyter nbconvert --to slides $(FLAGS) index --reveal-prefix reveal.js
 
 serve:
 	jupyter nbconvert --to slides $(FLAGS) index --post serve
