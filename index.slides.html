@@ -34,6 +34,29 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 <script src="http://cdn.jsdelivr.net/reveal.js/2.6.2/lib/js/html5shiv.js"></script>
 <![endif]-->
 
+<!-- Loading the mathjax macro -->
+<!-- Load mathjax -->
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <!-- MathJax configuration -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true,
+            processEnvironments: true
+        },
+        // Center justify equations in code and markdown cells. Elsewhere
+        // we use CSS to left justify single line equations in code cells.
+        displayAlign: 'center',
+        "HTML-CSS": {
+            styles: {'.MathJax_Display': {"margin": 0}},
+            linebreaks: { automatic: true }
+        }
+    });
+    </script>
+    <!-- End of mathjax configuration -->
+
 <!-- Get Font-awesome from cdn -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
 
@@ -83,8 +106,10 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
 .highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
 .highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
 .highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
@@ -145,11 +170,9 @@ if( window.location.search.match( /print-pdf/gi ) ) {
 
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
-html {
-  overflow-y: auto;
-}
 .reveal {
   font-size: 160%;
+  overflow-y: scroll;
 }
 .reveal pre {
   width: inherit;
@@ -202,6 +225,14 @@ div.output_prompt {
   /* 5px right shift to account for margin in parent container */
   margin: 5px 5px 0 0;
 }
+div.text_cell.rendered .rendered_html {
+  /* The H1 height seems miscalculated, we are just hidding the scrollbar */
+  overflow-y: hidden;
+}
+a.anchor-link {
+  /* There is still an anchor, we are only hidding it */
+  display: none;
+}
 .rendered_html p {
   text-align: inherit;
 }
@@ -215,9 +246,189 @@ div.output_prompt {
 <body>
 <div class="reveal">
 <div class="slides">
-<section>
-    <section>
-    
+<aside class="notes">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Styling</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="s1">&#39;./css/custom.css&#39;</span>
+    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
+    <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
+<span class="n">css_styling</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+/* 
+* @Author: paul
+* @Date:   2016-02-25 17:35:32
+* @Last Modified by:   paul
+* @Last Modified time: 2016-02-25 17:45:54
+*/
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+<style>
+
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+}
+
+#notebook_panel { /* main background */
+    background: rgb(245,245,245);
+}
+
+div.cell { /* set cell width */
+    width: 1000px;
+}
+
+div #notebook { /* centre the content */
+    background: #fff; /* white background for content */
+    width: 1200px;
+    margin: auto;
+    padding-left: 0em;
+}
+
+#notebook li { /* More space between bullet points */
+margin-top:0.8em;
+}
+
+/* draw border around running cells */
+div.cell.border-box-sizing.code_cell.running { 
+    border: 1px solid #111;
+}
+
+/* Put a solid color box around each cell and its output, visually linking them*/
+div.cell.code_cell {
+    background-color: rgb(256,256,256); 
+    border-radius: 0px; 
+    padding: 0.5em;
+    margin-left:1em;
+    margin-top: 1em;
+}
+
+div.text_cell_render{
+    font-family: 'Open Sans' sans-serif;
+    line-height: 140%;
+    font-size: 125%;
+    font-weight: 400;
+    width:900px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+/* Formatting for header cells */
+.text_cell_render h1 {
+    font-family: 'Arvo', serif;
+    font-style:regular;
+    font-weight: 400;    
+    font-size: 45pt;
+    line-height: 100%;
+    color: rgb(0,51,102);
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    display: block;
+}	
+.text_cell_render h2 {
+    font-family: 'Arvo', serif;
+    font-weight: 400;
+    font-size: 30pt;
+    line-height: 100%;
+    color: rgb(0,51,102);
+    margin-bottom: 0.1em;
+    margin-top: 0.3em;
+    display: block;
+}	
+
+.text_cell_render h3 {
+    font-family: 'Arvo', serif;
+    margin-top:16px;
+	font-size: 22pt;
+    font-weight: 600;
+    margin-bottom: 3px;
+    font-style: regular;
+    color: rgb(102,102,0);
+}
+
+.text_cell_render h4 {    /*Use this for captions*/
+    font-family: 'Arvo', serif;
+    font-size: 14pt;
+    text-align: center;
+    margin-top: 0em;
+    margin-bottom: 2em;
+    font-style: regular;
+}
+
+.text_cell_render h5 {  /*Use this for small titles*/
+    font-family: 'Arvo', sans-serif;
+    font-weight: 400;
+    font-size: 16pt;
+    color: rgb(163,0,0);
+    font-style: italic;
+    margin-bottom: .1em;
+    margin-top: 0.8em;
+    display: block;
+}
+
+.text_cell_render h6 { /*use this for copyright note*/
+    font-family: 'PT Mono', sans-serif;
+    font-weight: 300;
+    font-size: 9pt;
+    line-height: 100%;
+    color: grey;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+.CodeMirror{
+        font-family: "PT Mono";
+        font-size: 90%;
+}
+
+</style>
+<script>
+    MathJax.Hub.Config({
+                        TeX: {
+                           extensions: ["AMSmath.js"],
+                           equationNumbers: { autoNumber: "AMS", useLabelIds: true}
+                           },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 4}}
+                }
+        });
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</aside><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -231,14 +442,13 @@ div.output_prompt {
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">&#182;</a></h2><ul>
-<li>Python 3, IPython 4+</li>
+<li>Python 3, IPython 4+ (Jupyter Notebook)</li>
 <li>Numpy, Matplotlib</li>
 <li>Download material and exercises from github:
 <a href="https://github.com/p-chambers/Python_OOP_Workshop">https://github.com/p-chambers/Python_OOP_Workshop</a></li>
@@ -246,14 +456,13 @@ div.output_prompt {
 
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="2">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Run this cell before trying examples</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Run this cell before trying examples</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -263,25 +472,21 @@ div.output_prompt {
 </div>
 </div>
 
-</div>
-    </div></section>
-    </section><section>
-    <section>
-    
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Intro-to-Python-OOP">Intro to Python OOP<a class="anchor-link" href="#Intro-to-Python-OOP">&#182;</a></h1><h4 id="(For-The-Classy-Programmer)">(For The Classy Programmer)<a class="anchor-link" href="#(For-The-Classy-Programmer)">&#182;</a></h4><blockquote><div align="center" style="width:600px; text-align:centered; font-style:italic; font-size:18pt">
-"In the class-based object-oriented programming paradigm, object refers to a particular instance of a class where the object can be a combination of variables, functions, and data structures."
+"Object-oriented programming (OOP) refers to a type of computer programming in which programmers define not only the data type of a data structure, but also the types of operations (functions) that can be applied to the data structure."
 </div>
 </blockquote>
+<p>Source: <a href="http://www.webopedia.com/TERM/O/object_oriented_programming_OOP.html">Webopedia</a></p>
 
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -298,7 +503,6 @@ div.output_prompt {
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -314,7 +518,6 @@ div.output_prompt {
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -335,7 +538,6 @@ div.output_prompt {
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -357,7 +559,6 @@ div.output_prompt {
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -379,7 +580,7 @@ div.output_prompt {
 </div>
 </div>
 </div><aside class="notes">
-    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -391,8 +592,7 @@ div.output_prompt {
 </div>
 </div>
 </div>
-    </aside></section><section>
-    
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -402,182 +602,15 @@ div.output_prompt {
 <li><code>Classes</code></li>
 <li>Initialization and <code>__init__</code></li>
 <li><code>self</code></li>
-<li>Python 2.X vs 3.X</li>
 <li>Encapsulation with underscore '<code>_</code>'</li>
 <li>Inheritance</li>
 <li>Magic operators</li>
+<li>Python 2.X vs 3.X</li>
 </ul>
 
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Structured-data:-Numpy-dtypes">Structured data: Numpy dtypes<a class="anchor-link" href="#Structured-data:-Numpy-dtypes">&#182;</a></h2><ul>
-<li>Not a class, but motivational example</li>
-<li>Structured associative data</li>
-<li>Similar to C <code>struct</code></li>
-<li>Identifiers to indicate data type</li>
-</ul>
-
-</div>
-</div>
-</div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Data-about-people">Example: Data about people<a class="anchor-link" href="#Example:-Data-about-people">&#182;</a></h4>
-</div>
-</div>
-</div><div class="fragment" data-fragment-index="13">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;#Name    Height    Weight</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;John     180    80.5</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Paul     172    75.1</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;George   185    78.6</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Ringo    170    76.5</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-    </div><div class="fragment" data-fragment-index="14">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Notice that the argument is a list of tuples</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;Height&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-                <span class="p">(</span><span class="s">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[(&quot;b&apos;John&apos;&quot;, 180, 80.5) (&quot;b&apos;Paul&apos;&quot;, 172, 75.1) (&quot;b&apos;George&apos;&quot;, 185, 78.6)
- (&quot;b&apos;Ringo&apos;&quot;, 170, 76.5)]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    </div><div class="fragment" data-fragment-index="15">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;Name&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;{} has weight {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;Name&#39;</span><span class="p">],</span>
-                                <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;Weight&#39;</span><span class="p">]))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&quot;b&apos;John&apos;&quot; &quot;b&apos;Paul&apos;&quot; &quot;b&apos;George&apos;&quot; &quot;b&apos;Ringo&apos;&quot;]
-b&apos;John&apos; has weight 80.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    </div></section><section>
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><a href="exercises/01-dtypes.html">Exercise: Load image data with dtype structured array</a></p>
-</blockquote>
-
-</div>
-</div>
-</div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div><div class="fragment" data-fragment-index="19">
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>... Data is structured, but not elegant</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-    </div></section>
-    </section><section>
-    <section>
-    
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -595,7 +628,6 @@ b&apos;John&apos; has weight 80.5
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -604,14 +636,13 @@ b&apos;John&apos; has weight 80.5
 <h4 id="Example:-Numpy-arrays-showing-how-it's-done">Example: Numpy arrays showing how it's done<a class="anchor-link" href="#Example:-Numpy-arrays-showing-how-it's-done">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="22">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Numpy arrays are classes</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Numpy arrays are classes</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">__class__</span><span class="p">)</span>
@@ -637,15 +668,13 @@ b&apos;John&apos; has weight 80.5
 </div>
 </div>
 
-</div>
-    </div><div class="fragment" data-fragment-index="22">
-        
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># We want to operate on the array: try numpy cumulative sum function</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We want to operate on the array: try numpy cumulative sum function</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
 </pre></div>
 
@@ -667,24 +696,20 @@ b&apos;John&apos; has weight 80.5
 </div>
 </div>
 
-</div>
-        </div><div class="fragment" data-fragment-index="24">
-    
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># np.cumsum(&#39;helloworld&#39;)   # Should we expect this to work?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># np.cumsum(&#39;helloworld&#39;)   # Should we expect this to work?</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -699,14 +724,13 @@ b&apos;John&apos; has weight 80.5
 
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="26">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># cumsum is a method belonging to a</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cumsum is a method belonging to a</span>
 <span class="n">a</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
 </pre></div>
 
@@ -718,7 +742,7 @@ b&apos;John&apos; has weight 80.5
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -730,33 +754,31 @@ b&apos;John&apos; has weight 80.5
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Simple-class">Example: Simple class<a class="anchor-link" href="#Example:-Simple-class">&#182;</a></h4>
+<h4 id="Example:-Simple-class">Example: Simple class<a class="anchor-link" href="#Example:-Simple-class">&#182;</a></h4><ul>
+<li>For now, assume all classes defined by:  <code>class ClassName(object)</code></li>
+</ul>
+
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="28">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Bob&#39;</span>     
-        <span class="c"># Attribute</span>
-    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>         <span class="c"># Method (more on &#39;self&#39; later)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>         <span class="c1"># Method (more on &#39;self&#39; later)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
 
-<span class="n">agreeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>         <span class="c"># &#39;Instantiate&#39; the class</span>
+<span class="n">agreeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>         <span class="c1"># &#39;Instantiate&#39; the class</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">agreeter</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">agreeter</span><span class="p">))</span>
+<span class="c1"># agreeter.                  # Tab complete?</span>
 </pre></div>
 
 </div>
@@ -769,8 +791,7 @@ b&apos;John&apos; has weight 80.5
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;__main__.Greeter object at 0x2add7baf3518&gt;
-[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__dict__&apos;, &apos;__dir__&apos;, &apos;__doc__&apos;, &apos;__eq__&apos;, &apos;__format__&apos;, &apos;__ge__&apos;, &apos;__getattribute__&apos;, &apos;__gt__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__le__&apos;, &apos;__lt__&apos;, &apos;__module__&apos;, &apos;__ne__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;__weakref__&apos;, &apos;hello&apos;, &apos;name&apos;]
+<pre>&lt;__main__.Greeter object at 0x10e3d4518&gt;
 </pre>
 </div>
 </div>
@@ -778,17 +799,26 @@ b&apos;John&apos; has weight 80.5
 </div>
 </div>
 
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-    </div><div class="fragment" data-fragment-index="29">
-    
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There's a few things here which I haven't introduced, but all will become clear in the remainder of this workshop.</p>
+
+</div>
+</div>
+</div>
+</aside></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Note that we don&#39;t pass an argument to hello!</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note that we don&#39;t pass an argument to hello!</span>
 <span class="n">agreeter</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;My name is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">agreeter</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -802,7 +832,6 @@ b&apos;John&apos; has weight 80.5
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Hello World
-My name is Bob
 </pre>
 </div>
 </div>
@@ -810,11 +839,7 @@ My name is Bob
 </div>
 </div>
 
-</div>
-    </div></section>
-    </section><section>
-    <section>
-    
+</div></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -830,19 +855,18 @@ My name is Bob
 </div>
 </div>
 </div><aside class="notes">
-    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note:</strong> Passing of <code>self</code> is done implicitly in other lagnauges e.g. C++ and Java, and proponents of those languages may argue that this is better. "<em>Explicit is better than implicit</em>" is <a href="https://www.python.org/dev/peps/pep-0020/">simply the python way</a>.</p>
+<p><strong>Note:</strong> Passing of <code>self</code> is done implicitly in other languages e.g. C++ and Java, and proponents of those languages may argue that this is better. "<em>Explicit is better than implicit</em>" is <a href="https://www.python.org/dev/peps/pep-0020/">simply the python way</a>.</p>
 
 </div>
 </div>
 </div>
-    </aside></section><section>
-    
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -858,7 +882,6 @@ My name is Bob
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -874,7 +897,7 @@ My name is Bob
 </div>
 </div>
 </div><aside class="notes">
-    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -892,8 +915,7 @@ My name is Bob
 </div>
 </div>
 </div>
-    </aside></section><section>
-    
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -902,16 +924,15 @@ My name is Bob
 <h4 id="Example:-Class-Initialisation">Example: Class Initialisation<a class="anchor-link" href="#Example:-Class-Initialisation">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="36">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
 <span class="n">a_instance</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a_instance</span><span class="p">))</span>
@@ -936,98 +957,7 @@ My name is Bob
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Old-classes-vs-New-classes">Old classes vs New classes<a class="anchor-link" href="#Old-classes-vs-New-classes">&#182;</a></h3><ul>
-<li>Inheritance behaviour is different</li>
-<li>New classes inherit from <code>object</code> (more later...)</li>
-<li>Old classes removed in Python 3</li>
-</ul>
-
-</div>
-</div>
-</div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-New-class-default-Python-3">Example: New class default Python 3<a class="anchor-link" href="#Example:-New-class-default-Python-3">&#182;</a></h4>
-</div>
-</div>
-</div><div class="fragment" data-fragment-index="39">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c"># This means &#39;inherit from object&#39;</span>
-    <span class="k">pass</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c"># Would give &lt;type &#39;classobj&#39;&gt;</span>
-                          <span class="c"># in Python 2</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">NewSyntax</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &apos;type&apos;&gt;
-&lt;class &apos;type&apos;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    </div><div class="fragment" data-fragment-index="40">
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Backwards compatibility: inherit <code>object</code> in Py3</li>
-</ul>
-
-</div>
-</div>
-</div>
-    </div><aside class="notes">
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Ok so up until now we haven't been inheriting object, but now that we know about it and that it can cause strange bugs we ought to inherit object from now.</p>
-
-</div>
-</div>
-</div>
-    </aside></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1043,7 +973,6 @@ My name is Bob
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1052,28 +981,27 @@ My name is Bob
 <h4 id="Example:-Defining-Instance-attributes/methods">Example: Defining Instance attributes/methods<a class="anchor-link" href="#Example:-Defining-Instance-attributes/methods">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="44">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Simple container which stores an array as an instance attribute</span>
 <span class="sd">    and an instance method&quot;&quot;&quot;</span>
-    <span class="c"># before we declared class attributes up here ...</span>
+    <span class="c1"># before we declared class attributes up here ...</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s">&#39;bx&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;bx&#39;</span><span class="p">)</span>
 
-<span class="n">mydata</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>      <span class="c"># 11 ia passed as &#39;N&#39; to __init__</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mydata</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>      <span class="c"># __dict__ is where the attr: value</span>
-                            <span class="c">#  pairs are stored!</span>
+<span class="n">mydata</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>      <span class="c1"># 11 ia passed as &#39;N&#39; to __init__</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mydata</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>      <span class="c1"># __dict__ is where the attr: value</span>
+                            <span class="c1">#  pairs are stored!</span>
 <span class="n">mydata</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 
@@ -1182,9 +1110,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1193,15 +1119,14 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <h4 id="Example:-Class-attributes-vs-instance-attributes">Example: Class attributes vs instance attributes<a class="anchor-link" href="#Example:-Class-attributes-vs-instance-attributes">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="46">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>    <span class="c"># class attribute</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>    <span class="c1"># class attribute</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
@@ -1229,16 +1154,14 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-    </div><div class="fragment" data-fragment-index="47">
-    
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c"># Creates INSTANCE attribute</span>
-<span class="n">Container</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">100</span>           <span class="c"># Overwrites CLASS attribute</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c1"># Creates INSTANCE attribute</span>
+<span class="n">Container</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">100</span>           <span class="c1"># Overwrites CLASS attribute</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
@@ -1262,9 +1185,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1278,7 +1199,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 </div><aside class="notes">
-    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1302,8 +1223,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 </div>
-    </aside></section><section>
-    
+</aside></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1312,14 +1232,13 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <h4 id="Example:-Implicit-vs-Explicit-passing-Instance">Example: Implicit vs Explicit passing Instance<a class="anchor-link" href="#Example:-Implicit-vs-Explicit-passing-Instance">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="51">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 
@@ -1328,7 +1247,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">Container</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
 
-<span class="n">a</span><span class="o">.</span><span class="n">print_data</span><span class="p">()</span>          <span class="c"># &lt;&lt;&lt; This is better</span>
+<span class="n">a</span><span class="o">.</span><span class="n">print_data</span><span class="p">()</span>          <span class="c1"># &lt;&lt;&lt; This is better</span>
 <span class="n">Container</span><span class="o">.</span><span class="n">print_data</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 
@@ -1351,23 +1270,17 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><a href="exercises/02-Classes_basics.html">Exercise: Python OOP 1: Basics and Initialisation with images</a></p>
-</blockquote>
+<h2 id="Exercise:-Basics-and-Initialisation">Exercise: Basics and Initialisation<a class="anchor-link" href="#Exercise:-Basics-and-Initialisation">&#182;</a></h2><p><a href="exercises/01-Classes_basics.html">Python OOP 1 Basics and Initialisation with images</a></p>
 
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
-    
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1383,7 +1296,6 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1398,15 +1310,15 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <li><p>Double underscore</p>
 <ul>
 <li>Stronger attempt to enforce the above</li>
-<li>Also 'mangles' the attribute name with <code>instance._ClassName__Attribute</code></li>
+<li>Also 'mangles' the attribute name with </li>
 </ul>
 </li>
 </ul>
+<p><code>instance._ClassName__Attribute</code></p>
 
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1415,20 +1327,19 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <h4 id="Example:-Data-hiding-&quot;protected&quot;,-single-underscore">Example: Data hiding "protected", single underscore<a class="anchor-link" href="#Example:-Data-hiding-&quot;protected&quot;,-single-underscore">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="56">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No juice!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No juice!&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">False</span>
     
     <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hasjuice</span>
@@ -1458,18 +1369,16 @@ True
 </div>
 </div>
 
-</div>
-    </div><div class="fragment" data-fragment-index="57">
-    
+</div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># orange.                  # tab completion behaviour?</span>
-<span class="c"># orange._                 # tab completion behaviour now?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span><span class="p">)</span>
-<span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="k">True</span>    <span class="c"># bad!</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># orange._                  # tab completion behaviour?</span>
+<span class="c1"># orange._                 # tab completion behaviour now?</span>
+<span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">True</span>    <span class="c1"># bad!</span>
+<span class="n">orange</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1480,75 +1389,7 @@ True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>False
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    </div></section><section>
-    
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Data-hiding-&quot;private&quot;,-double-underscore">Example: Data hiding "private", double underscore<a class="anchor-link" href="#Example:-Data-hiding-&quot;private&quot;,-double-underscore">&#182;</a></h4>
-</div>
-</div>
-</div><div class="fragment" data-fragment-index="59">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="k">True</span>
-
-    <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;No juice!&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="k">False</span>
-    
-    <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span>
-
-<span class="n">apple</span> <span class="o">=</span> <span class="n">Fruit</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-    </div><div class="fragment" data-fragment-index="60">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># apple._                       # tab completion behaviour?</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">juice</span><span class="p">()</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="k">True</span>   <span class="c"># Definitely bad!</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1560,9 +1401,73 @@ True
 </div>
 </div>
 
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-    </div><aside class="notes">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example:-Data-hiding-&quot;private&quot;,-double-underscore">Example: Data hiding "private", double underscore<a class="anchor-link" href="#Example:-Data-hiding-&quot;private&quot;,-double-underscore">&#182;</a></h4>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">juice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isempty</span><span class="p">():</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No juice!&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span> <span class="o">=</span> <span class="kc">False</span>
     
+    <span class="k">def</span> <span class="nf">isempty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__hasjuice</span>
+
+<span class="n">apple</span> <span class="o">=</span> <span class="n">Fruit</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># apple._                       # tab completion behaviour?</span>
+<span class="n">apple</span><span class="o">.</span><span class="n">juice</span><span class="p">()</span>
+<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># Definitely bad!</span>
+<span class="n">apple</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div><aside class="notes">
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1573,24 +1478,20 @@ True
 </div>
 </div>
 </div>
-    </aside></section><section>
-    
+</aside></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-</div></section>
-    </section><section>
-    <section>
-    
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1607,7 +1508,6 @@ True
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1616,16 +1516,15 @@ True
 <h4 id="Example:-Simple-inheritance">Example: Simple inheritance<a class="anchor-link" href="#Example:-Simple-inheritance">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="65">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c"># Note the base __init__ is overridden in</span>
-    <span class="c"># Child class</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1"># Note the base __init__ is overridden in</span>
+    <span class="c1"># Child class</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>     
         <span class="k">pass</span>
     <span class="k">def</span> <span class="nf">double</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1647,7 +1546,7 @@ True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1659,9 +1558,7 @@ True
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -1670,14 +1567,13 @@ True
 <h4 id="Example:-Calling-parent-methods-with-super">Example: Calling parent methods with <code>super</code><a class="anchor-link" href="#Example:-Calling-parent-methods-with-super">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="67">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Plottable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Plottable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
@@ -1685,18 +1581,18 @@ True
     
 <span class="k">class</span> <span class="nc">SinWave</span><span class="p">(</span><span class="n">Plottable</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SinWave</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)))</span>
 
 <span class="k">class</span> <span class="nc">CosWave</span><span class="p">(</span><span class="n">Plottable</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CosWave</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)))</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-<span class="n">mysin</span> <span class="o">=</span> <span class="n">SinWave</span><span class="p">();</span>   <span class="n">mysquare</span> <span class="o">=</span> <span class="n">CosWave</span><span class="p">()</span>
-<span class="n">mysin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">);</span>      <span class="n">mysquare</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mysin</span> <span class="o">=</span> <span class="n">SinWave</span><span class="p">();</span>   <span class="n">mycos</span> <span class="o">=</span> <span class="n">CosWave</span><span class="p">()</span>
+<span class="n">mysin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">);</span>      <span class="n">mycos</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1996,11 +1892,27 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
 </div>
-    </div></section>
-    </section><section>
-    <section>
-    
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Notes:</strong></p>
+<ul>
+<li>We didn't need any arguments to <code>super</code> here as Python 3 allows this</li>
+<li><p><code>super</code> requires additional arguments in Python 2, e.g.</p>
+
+<pre><code>super(Class, self).method(args...)</code></pre>
+</li>
+</ul>
+<p>If you were wondering why we should use <code>super().method</code> instead of <code>BaseClass.method</code>, other than the convenience of renaming classes, it relates to multiple inheritance which is beyond the scope of this course. If you need to write programs with multiple inheritance (and there are strong arguments against this), you may want to look at <a href="http://sixty-north.com/blog/pythons-super-not-as-simple-as-you-thought">this blog</a> for advanced use of <code>super</code>.</p>
+
+</div>
+</div>
+</div>
+</aside></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2016,7 +1928,6 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2025,14 +1936,13 @@ IQAAAABJRU5ErkJggg==
 <h4 id="Example:-The-magic-methods-of-object">Example: The magic methods of object<a class="anchor-link" href="#Example:-The-magic-methods-of-object">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="70">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">dir</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> 
 </pre></div>
 
 </div>
@@ -2043,7 +1953,7 @@ IQAAAABJRU5ErkJggg==
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -2076,9 +1986,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2104,7 +2012,6 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2113,14 +2020,13 @@ IQAAAABJRU5ErkJggg==
 <h4 id="Example:-overriding-__str__-and-__lt__-magic-methods">Example: overriding <code>__str__</code> and <code>__lt__</code> magic methods<a class="anchor-link" href="#Example:-overriding-__str__-and-__lt__-magic-methods">&#182;</a></h4>
 </div>
 </div>
-</div><div class="fragment" data-fragment-index="73">
-    
+</div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">Wave</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Wave</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">freq</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">=</span> <span class="n">freq</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
@@ -2128,13 +2034,13 @@ IQAAAABJRU5ErkJggg==
     
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;RETURNS the string for printing&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s">&quot;Wave frequency: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;Wave frequency: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wave2</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq</span> <span class="o">&lt;</span> <span class="n">wave2</span><span class="o">.</span><span class="n">freq</span>
 
 <span class="n">wav_low</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">wav_high</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c"># A high frequency wave</span>
+<span class="n">wav_high</span> <span class="o">=</span> <span class="n">Wave</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># A high frequency wave</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">wav_high</span><span class="p">)</span>
 <span class="n">wav_low</span> <span class="o">&lt;</span> <span class="n">wav_high</span>
@@ -2155,7 +2061,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -2167,15 +2073,13 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 
-</div>
-    </div></section><section>
-    
+</div></div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Live coding Bay....</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
 </pre></div>
 
 </div>
@@ -2183,7 +2087,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 
 </div><aside class="notes">
-    
+
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2194,23 +2098,104 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 </div>
-    </aside></section><section>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exercise:-Python-OOP2:-Inheritance-and-Magic-Methods">Exercise: Python OOP2: Inheritance and Magic Methods<a class="anchor-link" href="#Exercise:-Python-OOP2:-Inheritance-and-Magic-Methods">&#182;</a></h2><p><a href="exercises/02-Classes_pt2.html">Python OOP2 Inheritance and Magic Methods using shapes</a></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-2-vs-3">Python 2 vs 3<a class="anchor-link" href="#Python-2-vs-3">&#182;</a></h2><ul>
+<li>Dont need to inherit <code>object</code> in Python 3</li>
+<li>New classes inherit from <code>object</code></li>
+<li>Inheritance behaviour is different</li>
+<li>Old classes removed in Python 3</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example:-New-class-default-Python-3">Example: New class default Python 3<a class="anchor-link" href="#Example:-New-class-default-Python-3">&#182;</a></h4>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># This means &#39;inherit from object&#39;</span>
+    <span class="k">pass</span>
     
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c1"># Would give &lt;type &#39;classobj&#39;&gt;</span>
+                          <span class="c1"># in Python 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">NewSyntax</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &apos;type&apos;&gt;
+&lt;class &apos;type&apos;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><a href="exercises/03-Classes_pt2.html">Exercise: Python OOP2: Inheritance and Magic Methods using shapes</a></li>
+<li>Backwards compatibility: inherit <code>object</code> in Py3</li>
 </ul>
 
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
-    
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notes: There are other differences affecting classes which we have not included, such as metaclasses and iterator behaviour, but here is a link to a more complete comparison:</p>
+<ul>
+<li><a href="http://python3porting.com/differences.html">http://python3porting.com/differences.html</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</aside></div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2222,13 +2207,12 @@ IQAAAABJRU5ErkJggg==
 <li><p>Should test your knowledge from this course</p>
 </li>
 </ul>
-<blockquote><p><a href="exercises/04-Predator_prey.html">Exercise: Predator Prey </a></p>
+<blockquote><p><a href="exercises/03-Predator_prey.html">Exercise: Predator Prey </a></p>
 </blockquote>
 
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2246,10 +2230,7 @@ IQAAAABJRU5ErkJggg==
 
 </div>
 </div>
-</div></section>
-    </section><section>
-    <section>
-    
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2265,7 +2246,6 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 </div></section><section>
-    
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -2275,243 +2255,61 @@ IQAAAABJRU5ErkJggg==
 
 </div>
 </div>
-</div><aside class="notes">
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
-<span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
-    <span class="n">sheet</span> <span class="o">=</span> <span class="s">&#39;./css/custom.css&#39;</span>
-    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
-    <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
-<span class="n">css_styling</span><span class="p">()</span>
-</pre></div>
-
-</div>
+</div></section></section>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-/* 
-* @Author: paul
-* @Date:   2016-02-25 17:35:32
-* @Last Modified by:   paul
-* @Last Modified time: 2016-02-25 17:45:54
-*/
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
-<style>
-
-@font-face {
-    font-family: "Computer Modern";
-    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
-}
-
-#notebook_panel { /* main background */
-    background: rgb(245,245,245);
-}
-
-div.cell { /* set cell width */
-    width: 1000px;
-}
-
-div #notebook { /* centre the content */
-    background: #fff; /* white background for content */
-    width: 1200px;
-    margin: auto;
-    padding-left: 0em;
-}
-
-#notebook li { /* More space between bullet points */
-margin-top:0.8em;
-}
-
-/* draw border around running cells */
-div.cell.border-box-sizing.code_cell.running { 
-    border: 1px solid #111;
-}
-
-/* Put a solid color box around each cell and its output, visually linking them*/
-div.cell.code_cell {
-    background-color: rgb(256,256,256); 
-    border-radius: 0px; 
-    padding: 0.5em;
-    margin-left:1em;
-    margin-top: 1em;
-}
-
-div.text_cell_render{
-    font-family: 'Open Sans' sans-serif;
-    line-height: 140%;
-    font-size: 125%;
-    font-weight: 400;
-    width:900px;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-
-/* Formatting for header cells */
-.text_cell_render h1 {
-    font-family: 'Arvo', serif;
-    font-style:regular;
-    font-weight: 400;    
-    font-size: 45pt;
-    line-height: 100%;
-    color: rgb(0,51,102);
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
-    display: block;
-}	
-.text_cell_render h2 {
-    font-family: 'Arvo', serif;
-    font-weight: 400;
-    font-size: 30pt;
-    line-height: 100%;
-    color: rgb(0,51,102);
-    margin-bottom: 0.1em;
-    margin-top: 0.3em;
-    display: block;
-}	
-
-.text_cell_render h3 {
-    font-family: 'Arvo', serif;
-    margin-top:16px;
-	font-size: 22pt;
-    font-weight: 600;
-    margin-bottom: 3px;
-    font-style: regular;
-    color: rgb(102,102,0);
-}
-
-.text_cell_render h4 {    /*Use this for captions*/
-    font-family: 'Arvo', serif;
-    font-size: 14pt;
-    text-align: center;
-    margin-top: 0em;
-    margin-bottom: 2em;
-    font-style: regular;
-}
-
-.text_cell_render h5 {  /*Use this for small titles*/
-    font-family: 'Arvo', sans-serif;
-    font-weight: 400;
-    font-size: 16pt;
-    color: rgb(163,0,0);
-    font-style: italic;
-    margin-bottom: .1em;
-    margin-top: 0.8em;
-    display: block;
-}
-
-.text_cell_render h6 { /*use this for copyright note*/
-    font-family: 'PT Mono', sans-serif;
-    font-weight: 300;
-    font-size: 9pt;
-    line-height: 100%;
-    color: grey;
-    margin-bottom: 1px;
-    margin-top: 1px;
-}
-
-.CodeMirror{
-        font-family: "PT Mono";
-        font-size: 90%;
-}
-
-</style>
 <script>
-    MathJax.Hub.Config({
-                        TeX: {
-                           extensions: ["AMSmath.js"],
-                           equationNumbers: { autoNumber: "AMS", useLabelIds: true}
-                           },
-                tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-                },
-                displayAlign: 'center', // Change this to 'center' to center equations.
-                "HTML-CSS": {
-                    styles: {'.MathJax_Display': {"margin": 4}}
-                }
+
+require(
+    {
+      // it makes sense to wait a little bit when you are loading
+      // reveal from a cdn in a slow connection environment
+      waitSeconds: 15
+    },
+    [
+      "http://cdn.jsdelivr.net/reveal.js/2.6.2/lib/js/head.min.js",
+      "http://cdn.jsdelivr.net/reveal.js/2.6.2/js/reveal.js"
+    ],
+
+    function(head, Reveal){
+
+        // Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: "http://cdn.jsdelivr.net/reveal.js/2.6.2/lib/js/classList.js",
+                  condition: function() { return !document.body.classList; } },
+                { src: "http://cdn.jsdelivr.net/reveal.js/2.6.2/plugin/notes/notes.js",
+                  async: true,
+                  condition: function() { return !!document.body.classList; } }
+            ]
         });
-</script>
-</div>
 
-</div>
+        var update = function(event){
+          if(MathJax.Hub.getAllJax(Reveal.getCurrentSlide())){
+            MathJax.Hub.Rerender(Reveal.getCurrentSlide());
+          }
+        };
 
-</div>
-</div>
+        Reveal.addEventListener('slidechanged', update);
 
-</div>
-    </aside></section>
-    </section>
-</div>
-</div>
+        var update_scroll = function(event){
+          $(".reveal").scrollTop(0);
+        };
 
-<script src="http://cdn.jsdelivr.net/reveal.js/2.6.2/lib/js/head.min.js"></script>
+        Reveal.addEventListener('slidechanged', update_scroll);
 
-<script src="http://cdn.jsdelivr.net/reveal.js/2.6.2/js/reveal.js"></script>
+    }
+);
 
-<script>
-
-// Full list of configuration options available here: https://github.com/hakimel/reveal.js#configuration
-Reveal.initialize({
-controls: true,
-progress: true,
-history: true,
-
-theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/none
-
-// Optional libraries used to extend on reveal.js
-dependencies: [
-{ src: "http://cdn.jsdelivr.net/reveal.js/2.6.2/lib/js/classList.js", condition: function() { return !document.body.classList; } },
-{ src: "http://cdn.jsdelivr.net/reveal.js/2.6.2/plugin/notes/notes.js", async: true, condition: function() { return !!document.body.classList; } }
-]
-});
-</script>
-
-<!-- Loading mathjax macro -->
-<!-- Load mathjax -->
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
-    <!-- MathJax configuration -->
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
-        }
-    });
-    </script>
-    <!-- End of mathjax configuration -->
-
-<script>
-Reveal.addEventListener( 'slidechanged', function( event ) {
-  window.scrollTo(0,0);
-  MathJax.Hub.Rerender(event.currentSlide);
-});
 </script>
 
 </body>

@@ -171,6 +171,186 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Styling</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
+<span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
+    <span class="n">sheet</span> <span class="o">=</span> <span class="s1">&#39;./css/custom.css&#39;</span>
+    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
+    <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
+<span class="n">css_styling</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+/* 
+* @Author: paul
+* @Date:   2016-02-25 17:35:32
+* @Last Modified by:   paul
+* @Last Modified time: 2016-02-25 17:45:54
+*/
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
+<style>
+
+@font-face {
+    font-family: "Computer Modern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+}
+
+#notebook_panel { /* main background */
+    background: rgb(245,245,245);
+}
+
+div.cell { /* set cell width */
+    width: 1000px;
+}
+
+div #notebook { /* centre the content */
+    background: #fff; /* white background for content */
+    width: 1200px;
+    margin: auto;
+    padding-left: 0em;
+}
+
+#notebook li { /* More space between bullet points */
+margin-top:0.8em;
+}
+
+/* draw border around running cells */
+div.cell.border-box-sizing.code_cell.running { 
+    border: 1px solid #111;
+}
+
+/* Put a solid color box around each cell and its output, visually linking them*/
+div.cell.code_cell {
+    background-color: rgb(256,256,256); 
+    border-radius: 0px; 
+    padding: 0.5em;
+    margin-left:1em;
+    margin-top: 1em;
+}
+
+div.text_cell_render{
+    font-family: 'Open Sans' sans-serif;
+    line-height: 140%;
+    font-size: 125%;
+    font-weight: 400;
+    width:900px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+/* Formatting for header cells */
+.text_cell_render h1 {
+    font-family: 'Arvo', serif;
+    font-style:regular;
+    font-weight: 400;    
+    font-size: 45pt;
+    line-height: 100%;
+    color: rgb(0,51,102);
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    display: block;
+}	
+.text_cell_render h2 {
+    font-family: 'Arvo', serif;
+    font-weight: 400;
+    font-size: 30pt;
+    line-height: 100%;
+    color: rgb(0,51,102);
+    margin-bottom: 0.1em;
+    margin-top: 0.3em;
+    display: block;
+}	
+
+.text_cell_render h3 {
+    font-family: 'Arvo', serif;
+    margin-top:16px;
+	font-size: 22pt;
+    font-weight: 600;
+    margin-bottom: 3px;
+    font-style: regular;
+    color: rgb(102,102,0);
+}
+
+.text_cell_render h4 {    /*Use this for captions*/
+    font-family: 'Arvo', serif;
+    font-size: 14pt;
+    text-align: center;
+    margin-top: 0em;
+    margin-bottom: 2em;
+    font-style: regular;
+}
+
+.text_cell_render h5 {  /*Use this for small titles*/
+    font-family: 'Arvo', sans-serif;
+    font-weight: 400;
+    font-size: 16pt;
+    color: rgb(163,0,0);
+    font-style: italic;
+    margin-bottom: .1em;
+    margin-top: 0.8em;
+    display: block;
+}
+
+.text_cell_render h6 { /*use this for copyright note*/
+    font-family: 'PT Mono', sans-serif;
+    font-weight: 300;
+    font-size: 9pt;
+    line-height: 100%;
+    color: grey;
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+.CodeMirror{
+        font-family: "PT Mono";
+        font-size: 90%;
+}
+
+</style>
+<script>
+    MathJax.Hub.Config({
+                        TeX: {
+                           extensions: ["AMSmath.js"],
+                           equationNumbers: { autoNumber: "AMS", useLabelIds: true}
+                           },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+                },
+                displayAlign: 'center', // Change this to 'center' to center equations.
+                "HTML-CSS": {
+                    styles: {'.MathJax_Display': {"margin": 4}}
+                }
+        });
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
@@ -190,7 +370,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Prerequisites">Prerequisites<a class="anchor-link" href="#Prerequisites">&#182;</a></h2><ul>
-<li>Python 3, IPython 4+</li>
+<li>Python 3, IPython 4+ (Jupyter Notebook)</li>
 <li>Numpy, Matplotlib</li>
 <li>Download material and exercises from github:
 <a href="https://github.com/p-chambers/Python_OOP_Workshop">https://github.com/p-chambers/Python_OOP_Workshop</a></li>
@@ -201,7 +381,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Run this cell before trying examples</span>
@@ -221,9 +401,10 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Intro-to-Python-OOP">Intro to Python OOP<a class="anchor-link" href="#Intro-to-Python-OOP">&#182;</a></h1><h4 id="(For-The-Classy-Programmer)">(For The Classy Programmer)<a class="anchor-link" href="#(For-The-Classy-Programmer)">&#182;</a></h4><blockquote><div align="center" style="width:600px; text-align:centered; font-style:italic; font-size:18pt">
-"In the class-based object-oriented programming paradigm, object refers to a particular instance of a class where the object can be a combination of variables, functions, and data structures."
+"Object-oriented programming (OOP) refers to a type of computer programming in which programmers define not only the data type of a data structure, but also the types of operations (functions) that can be applied to the data structure."
 </div>
 </blockquote>
+<p>Source: <a href="http://www.webopedia.com/TERM/O/object_oriented_programming_OOP.html">Webopedia</a></p>
 
 </div>
 </div>
@@ -341,160 +522,11 @@ div#notebook {
 <li><code>Classes</code></li>
 <li>Initialization and <code>__init__</code></li>
 <li><code>self</code></li>
-<li>Python 2.X vs 3.X</li>
 <li>Encapsulation with underscore '<code>_</code>'</li>
 <li>Inheritance</li>
 <li>Magic operators</li>
+<li>Python 2.X vs 3.X</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Structured-data:-Numpy-dtypes">Structured data: Numpy dtypes<a class="anchor-link" href="#Structured-data:-Numpy-dtypes">&#182;</a></h2><ul>
-<li>Not a class, but motivational example</li>
-<li>Structured associative data</li>
-<li>Similar to C <code>struct</code></li>
-<li>Identifiers to indicate data type</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Data-about-people">Example: Data about people<a class="anchor-link" href="#Example:-Data-about-people">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;#Name    Height    Weight</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;John     180    80.5</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Paul     172    75.1</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;George   185    78.6</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;Ringo    170    76.5</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Notice that the argument is a list of tuples</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">([(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">str_</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span>
-                <span class="p">(</span><span class="s1">&#39;Weight&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)])</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;data/structured_data.txt&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[(&quot;b&apos;John&apos;&quot;, 180, 80.5) (&quot;b&apos;Paul&apos;&quot;, 172, 75.1) (&quot;b&apos;George&apos;&quot;, 185, 78.6)
- (&quot;b&apos;Ringo&apos;&quot;, 170, 76.5)]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> has weight </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Name&#39;</span><span class="p">],</span>
-                                <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Weight&#39;</span><span class="p">]))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&quot;b&apos;John&apos;&quot; &quot;b&apos;Paul&apos;&quot; &quot;b&apos;George&apos;&quot; &quot;b&apos;Ringo&apos;&quot;]
-b&apos;John&apos; has weight 80.5
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><a href="exercises/01-dtypes.html">Exercise: Load image data with dtype structured array</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>... Data is structured, but not elegant</p>
-</blockquote>
 
 </div>
 </div>
@@ -527,7 +559,7 @@ b&apos;John&apos; has weight 80.5
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Numpy arrays are classes</span>
@@ -559,7 +591,7 @@ b&apos;John&apos; has weight 80.5
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We want to operate on the array: try numpy cumulative sum function</span>
@@ -587,7 +619,7 @@ b&apos;John&apos; has weight 80.5
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># np.cumsum(&#39;helloworld&#39;)   # Should we expect this to work?</span>
@@ -615,7 +647,7 @@ b&apos;John&apos; has weight 80.5
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cumsum is a method belonging to a</span>
@@ -630,7 +662,7 @@ b&apos;John&apos; has weight 80.5
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -648,24 +680,25 @@ b&apos;John&apos; has weight 80.5
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-Simple-class">Example: Simple class<a class="anchor-link" href="#Example:-Simple-class">&#182;</a></h4>
+<h4 id="Example:-Simple-class">Example: Simple class<a class="anchor-link" href="#Example:-Simple-class">&#182;</a></h4><ul>
+<li>For now, assume all classes defined by:  <code>class ClassName(object)</code></li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">:</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Bob&#39;</span>     
-        <span class="c1"># Attribute</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>         <span class="c1"># Method (more on &#39;self&#39; later)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
 
 <span class="n">agreeter</span> <span class="o">=</span> <span class="n">Greeter</span><span class="p">()</span>         <span class="c1"># &#39;Instantiate&#39; the class</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">agreeter</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">agreeter</span><span class="p">))</span>
+<span class="c1"># agreeter.                  # Tab complete?</span>
 </pre></div>
 
 </div>
@@ -678,8 +711,7 @@ b&apos;John&apos; has weight 80.5
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;__main__.Greeter object at 0x10e8854a8&gt;
-[&apos;__class__&apos;, &apos;__delattr__&apos;, &apos;__dict__&apos;, &apos;__dir__&apos;, &apos;__doc__&apos;, &apos;__eq__&apos;, &apos;__format__&apos;, &apos;__ge__&apos;, &apos;__getattribute__&apos;, &apos;__gt__&apos;, &apos;__hash__&apos;, &apos;__init__&apos;, &apos;__le__&apos;, &apos;__lt__&apos;, &apos;__module__&apos;, &apos;__ne__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__setattr__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;__weakref__&apos;, &apos;hello&apos;, &apos;name&apos;]
+<pre>&lt;__main__.Greeter object at 0x10e6fe4e0&gt;
 </pre>
 </div>
 </div>
@@ -688,14 +720,23 @@ b&apos;John&apos; has weight 80.5
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There's a few things here which I haven't introduced, but all will become clear in the remainder of this workshop.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note that we don&#39;t pass an argument to hello!</span>
 <span class="n">agreeter</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;My name is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">agreeter</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -709,7 +750,6 @@ b&apos;John&apos; has weight 80.5
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Hello World
-My name is Bob
 </pre>
 </div>
 </div>
@@ -738,7 +778,7 @@ My name is Bob
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note:</strong> Passing of <code>self</code> is done implicitly in other lagnauges e.g. C++ and Java, and proponents of those languages may argue that this is better. "<em>Explicit is better than implicit</em>" is <a href="https://www.python.org/dev/peps/pep-0020/">simply the python way</a>.</p>
+<p><strong>Note:</strong> Passing of <code>self</code> is done implicitly in other languages e.g. C++ and Java, and proponents of those languages may argue that this is better. "<em>Explicit is better than implicit</em>" is <a href="https://www.python.org/dev/peps/pep-0020/">simply the python way</a>.</p>
 
 </div>
 </div>
@@ -801,10 +841,10 @@ My name is Bob
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
@@ -837,87 +877,6 @@ My name is Bob
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Old-classes-vs-New-classes">Old classes vs New classes<a class="anchor-link" href="#Old-classes-vs-New-classes">&#182;</a></h3><ul>
-<li>Inheritance behaviour is different</li>
-<li>New classes inherit from <code>object</code> (more later...)</li>
-<li>Old classes removed in Python 3</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Example:-New-class-default-Python-3">Example: New class default Python 3<a class="anchor-link" href="#Example:-New-class-default-Python-3">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
-    <span class="k">pass</span>
-
-<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># This means &#39;inherit from object&#39;</span>
-    <span class="k">pass</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c1"># Would give &lt;type &#39;classobj&#39;&gt;</span>
-                          <span class="c1"># in Python 2</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">NewSyntax</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &apos;type&apos;&gt;
-&lt;class &apos;type&apos;&gt;
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Backwards compatibility: inherit <code>object</code> in Py3</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Ok so up until now we haven't been inheriting object, but now that we know about it and that it can cause strange bugs we ought to inherit object from now.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Instance-attributes-and-Class-attributes">Instance attributes and Class attributes<a class="anchor-link" href="#Instance-attributes-and-Class-attributes">&#182;</a></h3><ul>
 <li>Instance attributes definition: <code>self.attribute = value</code></li>
 <li>Class attributes defined outside functions (<em>class scope</em>)</li>
@@ -939,7 +898,7 @@ My name is Bob
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1077,7 +1036,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1112,7 +1071,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="mi">0</span>                     <span class="c1"># Creates INSTANCE attribute</span>
@@ -1188,7 +1147,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Container</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1229,8 +1188,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p><a href="exercises/02-Classes_basics.html">Exercise: Python OOP 1: Basics and Initialisation with images</a></p>
-</blockquote>
+<h2 id="Exercise:-Basics-and-Initialisation">Exercise: Basics and Initialisation<a class="anchor-link" href="#Exercise:-Basics-and-Initialisation">&#182;</a></h2><p><a href="exercises/01-Classes_basics.html">Python OOP 1 Basics and Initialisation with images</a></p>
 
 </div>
 </div>
@@ -1264,10 +1222,11 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 <li><p>Double underscore</p>
 <ul>
 <li>Stronger attempt to enforce the above</li>
-<li>Also 'mangles' the attribute name with <code>instance._ClassName__Attribute</code></li>
+<li>Also 'mangles' the attribute name with </li>
 </ul>
 </li>
 </ul>
+<p><code>instance._ClassName__Attribute</code></p>
 
 </div>
 </div>
@@ -1283,7 +1242,7 @@ uyQVyHCXpAIZ7pJUIMNdkgpkuEtSgQx3SSrQ/wPcwaFEJyu15gAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1325,13 +1284,13 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># orange.                  # tab completion behaviour?</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># orange._                  # tab completion behaviour?</span>
 <span class="c1"># orange._                 # tab completion behaviour now?</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span><span class="p">)</span>
 <span class="n">orange</span><span class="o">.</span><span class="n">_hasjuice</span> <span class="o">=</span> <span class="kc">True</span>    <span class="c1"># bad!</span>
+<span class="n">orange</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1342,11 +1301,13 @@ True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>False
-</pre>
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
 </div>
+
 </div>
 
 </div>
@@ -1364,7 +1325,7 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Fruit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1388,12 +1349,12 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># apple._                       # tab completion behaviour?</span>
 <span class="n">apple</span><span class="o">.</span><span class="n">juice</span><span class="p">()</span>
-<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="kc">True</span>   <span class="c1"># Definitely bad!</span>
+<span class="n">apple</span><span class="o">.</span><span class="n">_Fruit__hasjuice</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># Definitely bad!</span>
 <span class="n">apple</span><span class="o">.</span><span class="n">isempty</span><span class="p">()</span>
 </pre></div>
 
@@ -1405,11 +1366,11 @@ True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
+<pre>True</pre>
 </div>
 
 </div>
@@ -1430,7 +1391,7 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
@@ -1468,7 +1429,7 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Parent</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1495,7 +1456,7 @@ True
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1519,7 +1480,7 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Plottable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1530,18 +1491,18 @@ True
     
 <span class="k">class</span> <span class="nc">SinWave</span><span class="p">(</span><span class="n">Plottable</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">SinWave</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)))</span>
 
 <span class="k">class</span> <span class="nc">CosWave</span><span class="p">(</span><span class="n">Plottable</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">CosWave</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">101</span><span class="p">)))</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
-<span class="n">mysin</span> <span class="o">=</span> <span class="n">SinWave</span><span class="p">();</span>   <span class="n">mysquare</span> <span class="o">=</span> <span class="n">CosWave</span><span class="p">()</span>
-<span class="n">mysin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">);</span>      <span class="n">mysquare</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">mysin</span> <span class="o">=</span> <span class="n">SinWave</span><span class="p">();</span>   <span class="n">mycos</span> <span class="o">=</span> <span class="n">CosWave</span><span class="p">()</span>
+<span class="n">mysin</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">);</span>      <span class="n">mycos</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1847,6 +1808,24 @@ IQAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Notes:</strong></p>
+<ul>
+<li>We didn't need any arguments to <code>super</code> here as Python 3 allows this</li>
+<li><p><code>super</code> requires additional arguments in Python 2, e.g.</p>
+
+<pre><code>super(Class, self).method(args...)</code></pre>
+</li>
+</ul>
+<p>If you were wondering why we should use <code>super().method</code> instead of <code>BaseClass.method</code>, other than the convenience of renaming classes, it relates to multiple inheritance which is beyond the scope of this course. If you need to write programs with multiple inheritance (and there are strong arguments against this), you may want to look at <a href="http://sixty-north.com/blog/pythons-super-not-as-simple-as-you-thought">this blog</a> for advanced use of <code>super</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Classes:-Magic-Methods">Classes: Magic Methods<a class="anchor-link" href="#Classes:-Magic-Methods">&#182;</a></h2><ul>
 <li>The workhorse of how things 'just work' in Python</li>
 <li><code>object</code> &amp; builtin types come with many of these</li>
@@ -1868,7 +1847,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> 
@@ -1882,7 +1861,7 @@ IQAAAABJRU5ErkJggg==
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1952,7 +1931,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Wave</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -1990,7 +1969,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -2005,7 +1984,7 @@ IQAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Live coding Bay....</span>
@@ -2031,8 +2010,91 @@ IQAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Exercise:-Python-OOP2:-Inheritance-and-Magic-Methods">Exercise: Python OOP2: Inheritance and Magic Methods<a class="anchor-link" href="#Exercise:-Python-OOP2:-Inheritance-and-Magic-Methods">&#182;</a></h2><p><a href="exercises/02-Classes_pt2.html">Python OOP2 Inheritance and Magic Methods using shapes</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Python-2-vs-3">Python 2 vs 3<a class="anchor-link" href="#Python-2-vs-3">&#182;</a></h2><ul>
+<li>Dont need to inherit <code>object</code> in Python 3</li>
+<li>New classes inherit from <code>object</code></li>
+<li>Inheritance behaviour is different</li>
+<li>Old classes removed in Python 3</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example:-New-class-default-Python-3">Example: New class default Python 3<a class="anchor-link" href="#Example:-New-class-default-Python-3">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">OldSyntax</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">NewSyntax</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  <span class="c1"># This means &#39;inherit from object&#39;</span>
+    <span class="k">pass</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">OldSyntax</span><span class="p">))</span>    <span class="c1"># Would give &lt;type &#39;classobj&#39;&gt;</span>
+                          <span class="c1"># in Python 2</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">NewSyntax</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &apos;type&apos;&gt;
+&lt;class &apos;type&apos;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><a href="exercises/03-Classes_pt2.html">Exercise: Python OOP2: Inheritance and Magic Methods using shapes</a></li>
+<li>Backwards compatibility: inherit <code>object</code> in Py3</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notes: There are other differences affecting classes which we have not included, such as metaclasses and iterator behaviour, but here is a link to a more complete comparison:</p>
+<ul>
+<li><a href="http://python3porting.com/differences.html">http://python3porting.com/differences.html</a></li>
 </ul>
 
 </div>
@@ -2049,7 +2111,7 @@ IQAAAABJRU5ErkJggg==
 <li><p>Should test your knowledge from this course</p>
 </li>
 </ul>
-<blockquote><p><a href="exercises/04-Predator_prey.html">Exercise: Predator Prey </a></p>
+<blockquote><p><a href="exercises/03-Predator_prey.html">Exercise: Predator Prey </a></p>
 </blockquote>
 
 </div>
@@ -2097,185 +2159,6 @@ IQAAAABJRU5ErkJggg==
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">HTML</span>
-<span class="k">def</span> <span class="nf">css_styling</span><span class="p">():</span>
-    <span class="n">sheet</span> <span class="o">=</span> <span class="s1">&#39;./css/custom.css&#39;</span>
-    <span class="n">styles</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">sheet</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> 
-    <span class="k">return</span> <span class="n">HTML</span><span class="p">(</span><span class="n">styles</span><span class="p">)</span>
-<span class="n">css_styling</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-/* 
-* @Author: paul
-* @Date:   2016-02-25 17:35:32
-* @Last Modified by:   paul
-* @Last Modified time: 2016-02-25 17:45:54
-*/
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:100,300,400,500,700,800,900,100italic,300italic,400italic,500italic,700italic,800italic,900italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Arvo:400,700,400italic' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
-<style>
-
-@font-face {
-    font-family: "Computer Modern";
-    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
-}
-
-#notebook_panel { /* main background */
-    background: rgb(245,245,245);
-}
-
-div.cell { /* set cell width */
-    width: 1000px;
-}
-
-div #notebook { /* centre the content */
-    background: #fff; /* white background for content */
-    width: 1200px;
-    margin: auto;
-    padding-left: 0em;
-}
-
-#notebook li { /* More space between bullet points */
-margin-top:0.8em;
-}
-
-/* draw border around running cells */
-div.cell.border-box-sizing.code_cell.running { 
-    border: 1px solid #111;
-}
-
-/* Put a solid color box around each cell and its output, visually linking them*/
-div.cell.code_cell {
-    background-color: rgb(256,256,256); 
-    border-radius: 0px; 
-    padding: 0.5em;
-    margin-left:1em;
-    margin-top: 1em;
-}
-
-div.text_cell_render{
-    font-family: 'Open Sans' sans-serif;
-    line-height: 140%;
-    font-size: 125%;
-    font-weight: 400;
-    width:900px;
-    margin-left:auto;
-    margin-right:auto;
-}
-
-
-/* Formatting for header cells */
-.text_cell_render h1 {
-    font-family: 'Arvo', serif;
-    font-style:regular;
-    font-weight: 400;    
-    font-size: 45pt;
-    line-height: 100%;
-    color: rgb(0,51,102);
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
-    display: block;
-}	
-.text_cell_render h2 {
-    font-family: 'Arvo', serif;
-    font-weight: 400;
-    font-size: 30pt;
-    line-height: 100%;
-    color: rgb(0,51,102);
-    margin-bottom: 0.1em;
-    margin-top: 0.3em;
-    display: block;
-}	
-
-.text_cell_render h3 {
-    font-family: 'Arvo', serif;
-    margin-top:16px;
-	font-size: 22pt;
-    font-weight: 600;
-    margin-bottom: 3px;
-    font-style: regular;
-    color: rgb(102,102,0);
-}
-
-.text_cell_render h4 {    /*Use this for captions*/
-    font-family: 'Arvo', serif;
-    font-size: 14pt;
-    text-align: center;
-    margin-top: 0em;
-    margin-bottom: 2em;
-    font-style: regular;
-}
-
-.text_cell_render h5 {  /*Use this for small titles*/
-    font-family: 'Arvo', sans-serif;
-    font-weight: 400;
-    font-size: 16pt;
-    color: rgb(163,0,0);
-    font-style: italic;
-    margin-bottom: .1em;
-    margin-top: 0.8em;
-    display: block;
-}
-
-.text_cell_render h6 { /*use this for copyright note*/
-    font-family: 'PT Mono', sans-serif;
-    font-weight: 300;
-    font-size: 9pt;
-    line-height: 100%;
-    color: grey;
-    margin-bottom: 1px;
-    margin-top: 1px;
-}
-
-.CodeMirror{
-        font-family: "PT Mono";
-        font-size: 90%;
-}
-
-</style>
-<script>
-    MathJax.Hub.Config({
-                        TeX: {
-                           extensions: ["AMSmath.js"],
-                           equationNumbers: { autoNumber: "AMS", useLabelIds: true}
-                           },
-                tex2jax: {
-                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-                },
-                displayAlign: 'center', // Change this to 'center' to center equations.
-                "HTML-CSS": {
-                    styles: {'.MathJax_Display': {"margin": 4}}
-                }
-        });
-</script>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     </div>
   </div>

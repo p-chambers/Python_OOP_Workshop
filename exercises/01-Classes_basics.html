@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>02-Classes_basics</title>
+<title>01-Classes_basics</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -364,7 +364,7 @@ div.text_cell_render{
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The previous exercise has required you to use numpy dtypes as a means for structuring some simple image data. Classes could also be used for neater syntax and more readable code. The task in this exercise is to repeat the previous exercise using a class.</p>
+<p>This exercise is designed to motivate the use of object oriented programming in scientific computation via a simplified case using images. Your task is to program the Python <code>classes</code> which reads in the data from a file, manipulates the data and plots the image.</p>
 
 </div>
 </div>
@@ -392,7 +392,206 @@ div.text_cell_render{
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Task-breakdown">Task breakdown<a class="anchor-link" href="#Task-breakdown">&#182;</a></h2><p>Using the previous exercise as a reference point, create a <code>SquareImage</code> class which reads (portable greymap, '.pgm') image data from a file. The class should implement the following:</p>
+<h2 id="Portable-Greymap-(-.pgm)-Format">Portable Greymap ( <code>.pgm</code>) Format<a class="anchor-link" href="#Portable-Greymap-(-.pgm)-Format">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You have been provided with some image files i.e. <code>img1, .. img4</code> in the <code>data</code> directory in <em>portable greymap</em> (.pgm) format. Although admittedly a primitive image format, <code>.pgm</code> files are simple to manipulate as they contain only one pixel grey value per $x, y$ pixel in the image: the scale runs from 0 (black) to 255 (white). This represents a common task in scientific computing where you must read in some field data on a grid of points. <strong>You are provided with the code to read and reshape this data from a file!</strong></p>
+<p>Here's a demonstration of a greymap image that might be stored in <code>.pgm</code> format using a simple gradient of white to black - it is displayed here using a contour plot:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Nx</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">Ny</span> <span class="o">=</span> <span class="mi">72</span>
+<span class="n">img_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Nx</span><span class="p">)</span>
+<span class="n">img_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Ny</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">img_x</span><span class="p">,</span> <span class="n">img_y</span><span class="p">)</span>
+
+<span class="c1"># Generate the gradient image - this could be stored in .pgm format!</span>
+<span class="n">img_z</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">+</span><span class="n">Y</span><span class="p">)</span> <span class="o">*</span> <span class="mi">255</span><span class="o">*</span><span class="mf">0.5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">img_z</span><span class="p">)</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">img_x</span><span class="p">,</span> <span class="n">img_y</span><span class="p">,</span> <span class="n">img_z</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[ 255.          253.20422535  251.4084507  ...,  131.0915493   129.29577465
+   127.5       ]
+ [ 253.20422535  251.4084507   249.61267606 ...,  129.29577465  127.5
+   125.70422535]
+ [ 251.4084507   249.61267606  247.81690141 ...,  127.5         125.70422535
+   123.9084507 ]
+ ..., 
+ [ 131.0915493   129.29577465  127.5        ...,    7.18309859
+     5.38732394    3.5915493 ]
+ [ 129.29577465  127.5         125.70422535 ...,    5.38732394    3.5915493
+     1.79577465]
+ [ 127.5         125.70422535  123.9084507  ...,    3.5915493     1.79577465
+     0.        ]]
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.text.Text at 0x110bdb438&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+AElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Task-breakdown">Task breakdown<a class="anchor-link" href="#Task-breakdown">&#182;</a></h2><p>Create a <code>SquareImage</code> class which reads (portable greymap, '.pgm') image data from a file. The class should implement the following:</p>
 <ol>
 <li><p>The Initialiser method <code>__init__(self, ...)</code>, which takes a string <code>filename</code> as an argument and</p>
 <ul>
@@ -425,7 +624,7 @@ plt.show()</code></p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Implement the SquareImage class here:</span>
@@ -438,7 +637,7 @@ plt.show()</code></p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The image file names</span>
@@ -463,7 +662,7 @@ plt.show()</code></p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Instantiate the class and plot each picture. </span>
@@ -493,7 +692,7 @@ plt.show()</code></p>
 <pre>
 <span class="ansired">---------------------------------------------------------------------------</span>
 <span class="ansired">NameError</span>                                 Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-5-15041236129a&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">&lt;ipython-input-6-15041236129a&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
 <span class="ansigreen">      5</span>     <span class="ansired"># image = ...</span><span class="ansiblue"></span><span class="ansiblue"></span>
 <span class="ansigreen">      6</span> <span class="ansiblue"></span>
 <span class="ansigreen">----&gt; 7</span><span class="ansired">     </span>print<span class="ansiblue">(</span>image<span class="ansiblue">)</span><span class="ansiblue"></span>
@@ -513,7 +712,7 @@ plt.show()</code></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Extension">Extension<a class="anchor-link" href="#Extension">&#182;</a></h2><p>Now that we can read in image data from a file, extend your <code>SquareImages</code> class above so that if the filename is '<code>None</code>', we store the $z$ attribute as <code>np.zeros([Nx, Ny])</code>.</p>
+<h2 id="Extension">Extension<a class="anchor-link" href="#Extension">&#182;</a></h2><p>Now that we can read in image data from a file, extend your <code>SquareImages</code> class above so that if the filename is <code>None</code> (python keyword), we store the $z$ attribute as <code>np.zeros([Nx, Ny])</code>.</p>
 <ul>
 <li><p>This will require an if statement, e.g.:</p>
 <blockquote><p><code>if filename is None</code>
@@ -522,7 +721,7 @@ plt.show()</code></p>
     read and store z data</p>
 </blockquote>
 </li>
-<li><p>The default <code>filename</code> argument should be None, so that SquareImage() produces an 'empty' image.</p>
+<li><p>The default <code>filename</code> argument should be <code>None</code>, so that SquareImage() produces an 'empty' image.</p>
 </li>
 </ul>
 
@@ -531,7 +730,7 @@ plt.show()</code></p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create an &#39;empty&#39; SquareImage </span>
@@ -552,7 +751,7 @@ plt.show()</code></p>
 <pre>
 <span class="ansired">---------------------------------------------------------------------------</span>
 <span class="ansired">NameError</span>                                 Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-6-ef7780f2a94f&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">&lt;ipython-input-7-ef7780f2a94f&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
 <span class="ansigreen">      1</span> <span class="ansired"># Create an &apos;empty&apos; SquareImage</span><span class="ansiblue"></span><span class="ansiblue"></span>
 <span class="ansigreen">----&gt; 2</span><span class="ansired"> </span>combined <span class="ansiblue">=</span> SquareImage<span class="ansiblue">(</span><span class="ansiblue">)</span><span class="ansiblue"></span>
 <span class="ansigreen">      3</span> print<span class="ansiblue">(</span>combined<span class="ansiblue">.</span>z<span class="ansiblue">)</span><span class="ansiblue"></span>
@@ -577,7 +776,7 @@ plt.show()</code></p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># EXERCISE: Loop over the list of images and add on each image&#39;s z values to `combined&#39;:</span>
@@ -602,7 +801,7 @@ plt.show()</code></p>
 <pre>
 <span class="ansired">---------------------------------------------------------------------------</span>
 <span class="ansired">NameError</span>                                 Traceback (most recent call last)
-<span class="ansigreen">&lt;ipython-input-7-88f1acffde1b&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
+<span class="ansigreen">&lt;ipython-input-8-88f1acffde1b&gt;</span> in <span class="ansicyan">&lt;module&gt;</span><span class="ansiblue">()</span>
 <span class="ansigreen">      5</span> <span class="ansiblue"></span>
 <span class="ansigreen">      6</span> <span class="ansired"># Plot</span><span class="ansiblue"></span><span class="ansiblue"></span>
 <span class="ansigreen">----&gt; 7</span><span class="ansired"> </span>combined<span class="ansiblue">.</span>plot<span class="ansiblue">(</span><span class="ansiblue">)</span><span class="ansiblue"></span>
@@ -620,22 +819,9 @@ plt.show()</code></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Solutions"><a href="../soln/02-Classes_basics.html">Solutions</a><a class="anchor-link" href="#Solutions">&#182;</a></h1>
+<h1 id="Solutions"><a href="../soln/01-Classes_basics.html">Solutions</a><a class="anchor-link" href="#Solutions">&#182;</a></h1>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
 </div>
     </div>
   </div>
