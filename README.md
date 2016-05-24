@@ -29,9 +29,11 @@ Teaching material is largely in Jupyter Notebook format, and can be followed by 
 
   > `jupyter notebook index.ipynb`
 
-2. Viewing directly on Github
-    - [full material](http://p-chambers.github.io/Python_OOP_Workshop/)
-    - [slides](http://p-chambers.github.io/Python_OOP_Workshop/index.slides.html)
+  You should also remove output with
+
+  > `Kernel > Restart > Clear all outputs and restart`
+
+2. Viewing static material at [nbviewer](http://nbviewer.jupyter.org/github/p-chambers/Python_OOP_Workshop/blob/master/index.ipynb)
 
 
 Authors
